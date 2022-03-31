@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './styles.module.css'
-import './ReactGiscus.module.css'
 import { Giscus } from '@giscus/react'
 import { giscusConfig } from 'lib/config'
 
