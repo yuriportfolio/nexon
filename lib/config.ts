@@ -10,8 +10,8 @@ import { getSiteConfig, getEnv } from './get-config-value'
 import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
 import { GiscusProps } from '@giscus/react'
 
-export const isDev =
-  process.env.NODE_ENV === 'development' || !process.env.NODE_ENV
+export const environment = process.env.NODE_ENV || 'development'
+export const isDev = environment === 'development'
 
 // Root Notion page for local test. (Optional)
 const rootNotionTestPageID = parsePageId(
@@ -37,15 +37,15 @@ export const rootNotionSpaceId: string | null = parsePageId(
 
 export const pageUrlOverrides = cleanPageUrlMap(
   getSiteConfig('pageUrlOverrides', {}) || {},
-  'pageUrlOverrides'
+  { label: 'pageUrlOverrides' }
 )
-
-export const inversePageUrlOverrides = invertPageUrlOverrides(pageUrlOverrides)
 
 export const pageUrlAdditions = cleanPageUrlMap(
   getSiteConfig('pageUrlAdditions', {}) || {},
-  'pageUrlAdditions'
+  { label: 'pageUrlAdditions' }
 )
+
+export const inversePageUrlOverrides = invertPageUrlOverrides(pageUrlOverrides)
 
 // general site config
 export const name: string = getSiteConfig('name')
@@ -138,7 +138,11 @@ export const googleAnalyticsID = isDev ? null : process.env.NEXT_PUBLIC_GA_ID
 
 function cleanPageUrlMap(
   pageUrlMap: PageUrlOverridesMap,
-  label: string
+  {
+    label
+  }: {
+    label: string
+  }
 ): PageUrlOverridesMap {
   return Object.keys(pageUrlMap).reduce((acc, uri) => {
     const pageId = pageUrlMap[uri]
