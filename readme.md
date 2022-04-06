@@ -57,6 +57,17 @@ In order to find your Notion workspace ID (optional), just load any of your site
 
 I recommend setting up a collection on your home page (optional; I use an inline gallery [here](https://notion.so/78fc5a4b88d74b0e824e29407e9f1ec1)) that contains all of your articles / projects / content. There are no structural constraints on your Notion workspace, however, so feel free to add content as you would normally in Notion.
 
+## Production setup
+
+When deploying to Vercel, you'll need to set up a few things.
+
+### Vercel environment variables
+
+Vercel is not aware of the environment variables defined in the `.env` file.
+
+Therefore, those variable must be defined in Vercel, too. Once defined, they'll be available on the next builds.
+See [their documentation](https://vercel.com/docs/concepts/projects/environment-variables) for more details.
+
 ## URL Paths
 
 The app defaults to slightly different URL paths in dev vs prod (though pasting any dev pathname into prod will work and vice-versa).
@@ -92,6 +103,19 @@ REDIS_PASSWORD='TODO'
 
 Note that preview images and redis caching are both optional features. If you’d rather not deal with them, just disable them in your site config.
 
+### Configuring GitHub Actions
+
+By default, the workflow "[Build](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/blob/main/.github/workflows/build.yml)" runs when commits are pushed to the repository.
+
+If you have defined a Redis instance, you will need to slightly change the configuration, for GitHub Actions to be aware of those environment variables.
+[Here is an example](https://github.com/transitive-bullshit/nextjs-notion-starter-kit/blob/transitive-bullshit/.github/workflows/build.yml#L17-L21)
+
+Additionally, you'll need to configure the [GitHub secrets](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization/managing-encrypted-secrets-for-your-repository-and-organization-for-codespaces) for `REDIS_HOST` and `REDIS_PASSWORD`.
+
+### Redis provider
+
+If you want to use redis caching, you can use [Redis Labs](https://app.redislabs.com/), which provides a free plan.
+
 ## Styles
 
 All CSS styles that customize Notion content are located in [styles/notion.css](./styles/notion.css). They mainly target global CSS classes exported by react-notion-x [styles.css](https://github.com/NotionX/react-notion-x/blob/master/packages/react-notion-x/src/styles.css).
@@ -107,7 +131,7 @@ Every notion block gets its own unique classname, so you can target individual b
 ## Dark Mode
 
 <p align="center">
-  <img alt="Light Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F83ea9f0f-4761-4c0b-b53e-1913627975fc%2Ftransitivebullsh.it_-opt.jpg?table=block&id=ed7e8f60-c6d1-449e-840b-5c7762505c44&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%"> 
+  <img alt="Light Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F83ea9f0f-4761-4c0b-b53e-1913627975fc%2Ftransitivebullsh.it_-opt.jpg?table=block&id=ed7e8f60-c6d1-449e-840b-5c7762505c44&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%">
 &nbsp; &nbsp; &nbsp; &nbsp;
   <img alt="Dark Mode" src="https://transitive-bs.notion.site/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fc0839d6c-7141-48df-8afd-69b27fed84aa%2Ftransitivebullsh.it__(1)-opt.jpg?table=block&id=23b11fe5-d6df-422d-9674-39cf7f547523&spaceId=fde5ac74-eea3-4527-8f00-4482710e1af3&width=2000&userId=&cache=v2" width="45%">
 </p>
@@ -139,6 +163,14 @@ All pages are designed to be responsive across common device sizes.
 [Fathom](https://usefathom.com/ref/42TFOZ) provides a lightweight alternative to Google Analytics.
 
 To enable analytics, just add a `NEXT_PUBLIC_FATHOM_ID` environment variable, which will only be used in production.
+
+Note that this feature is completely optional.
+
+## PostHog Analytics
+
+[PostHog](https://posthog.com/) provides a lightweight **and open source** alternative to Google Analytics.
+
+To enable analytics, just add a `NEXT_PUBLIC_POSTHOG_ID` environment variable, which will only be used in production.
 
 Note that this feature is completely optional.
 
