@@ -31,7 +31,9 @@ import { useRouter } from 'next/router'
 import Script from 'next/script'
 import { bootstrap } from 'lib/bootstrap-client'
 import { fathomId, fathomConfig, googleAnalyticsID } from 'lib/config'
+import { postHogId, postHogConfig } from 'lib/config'
 import * as Fathom from 'fathom-client'
+import posthog from 'posthog-js'
 
 if (typeof window !== 'undefined') {
   bootstrap()
@@ -42,17 +44,28 @@ export default function App({ Component, pageProps }) {
 
   React.useEffect(() => {
     function onRouteChangeComplete() {
-      Fathom.trackPageview()
+      if (fathomId) {
+        Fathom.trackPageview()
+      }
+      if (postHogId) {
+        posthog.capture('$pageview')
+      }
     }
 
     if (fathomId) {
       Fathom.load(fathomId, fathomConfig)
+    }
+    if (postHogId) {
+      posthog.init(postHogId, postHogConfig)
+    }
+    if(!fathomId && !postHogId) {
+      console.debug('No Analytics id provided.')
+    }
 
-      router.events.on('routeChangeComplete', onRouteChangeComplete)
+    router.events.on('routeChangeComplete', onRouteChangeComplete)
 
-      return () => {
-        router.events.off('routeChangeComplete', onRouteChangeComplete)
-      }
+    return () => {
+      router.events.off('routeChangeComplete', onRouteChangeComplete)
     }
   }, [router.events])
 

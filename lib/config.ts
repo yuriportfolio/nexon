@@ -6,9 +6,11 @@
  */
 
 import { parsePageId } from 'notion-utils'
-import { getSiteConfig, getEnv } from './get-config-value'
-import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
 import { GiscusProps } from '@giscus/react'
+import posthog from 'posthog-js'
+import { getEnv, getSiteConfig } from './get-config-value'
+import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
+import Config = posthog.Config
 
 export const environment = process.env.NODE_ENV || 'development'
 export const isDev = environment === 'development'
@@ -121,13 +123,13 @@ export const host = isDev ? `http://localhost:${port}` : `https://${domain}`
 export const apiBaseUrl = `/api`
 
 export const api = {
-  searchNotion: `${apiBaseUrl}/search-notion`
+  searchNotion: `${apiBaseUrl}/search-notion`,
+  getSocialImage: `${apiBaseUrl}/social-image`
 }
 
 // ----------------------------------------------------------------------------
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
-
 export const fathomConfig = fathomId
   ? {
     excludedDomains: ['localhost', 'localhost:3000']
@@ -135,6 +137,17 @@ export const fathomConfig = fathomId
   : undefined
 
 export const googleAnalyticsID = isDev ? null : process.env.NEXT_PUBLIC_GA_ID
+
+// PostHog automatically filters events coming from localhost
+export const postHogId = process.env.NEXT_PUBLIC_POSTHOG_ID
+export const postHogConfig: Config = {
+  // See https://posthog.com/docs/integrate/client/js#config
+  api_host: 'https://app.posthog.com',
+  loaded: (posthog_instance) => {
+    console.debug(`PostHog loaded`, posthog_instance)
+    // posthog_instance.identify(unique user id)
+  }
+}
 
 function cleanPageUrlMap(
   pageUrlMap: PageUrlOverridesMap,
