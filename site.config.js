@@ -51,7 +51,7 @@ module.exports = {
   // whether or not redis is enabled for caching generated preview images (optional)
   // NOTE: if you enable redis, you need to set the `REDIS_HOST` and `REDIS_PASSWORD`
   // environment variables. see the readme for more info
-  isRedisEnabled: true,
+  isRedisEnabled: false,
 
   // map of notion page IDs to URL paths (optional)
   // any pages defined here will override their default URL paths
@@ -74,6 +74,6 @@ module.exports = {
   // Any invalid data type will be ignored and fallback to default metadata.
   //
   // These metadata will be used when generating RSS, Sitemap, etc.
-  OverrideCreatedTime: "Created",
+  OverrideCreatedTime: null,
   OverrideLastEditedTime: null,
 }
