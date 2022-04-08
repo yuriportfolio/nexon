@@ -3,7 +3,7 @@ import { getAllPagesInSpace, getPageProperty, getBlockTitle } from 'notion-utils
 
 import * as types from './types'
 import { includeNotionIdInUrls, overrideCreatedTime, overrideLastEditedTime } from './config'
-import { notion } from './notion'
+import { notion } from './notion-api'
 import { getCanonicalPageId } from './get-canonical-page-id'
 
 const uuid = !!includeNotionIdInUrls

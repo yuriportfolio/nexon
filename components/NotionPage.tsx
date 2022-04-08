@@ -15,12 +15,7 @@ import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 import { NotionRenderer } from 'react-notion-x'
 
 // utils
-import {
-  getBlockTitle,
-  getBlockIcon,
-  getPageProperty,
-  isUrl
-} from 'notion-utils'
+import { getBlockTitle, getPageProperty } from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
 import { getPageTweet } from 'lib/get-page-tweet'
@@ -37,6 +32,8 @@ import { PageActions } from './PageActions'
 import { Footer } from './Footer'
 import { PageSocial } from './PageSocial'
 const ReactGiscus = dynamic(() => import('./ReactGiscus'))
+import { NotionPageHeader } from './NotionPageHeader'
+import { GitHubShareButton } from './GitHubShareButton'
 
 import styles from './styles.module.css'
 
@@ -62,7 +59,11 @@ const Pdf = dynamic(
   }
 )
 const Modal = dynamic(
-  () => import('react-notion-x/build/third-party/modal').then((m) => m.Modal),
+  () =>
+    import('react-notion-x/build/third-party/modal').then((m) => {
+      m.Modal.setAppElement('.notion-viewport')
+      return m.Modal
+    }),
   {
     ssr: false
   }
@@ -77,14 +78,47 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const router = useRouter()
   const lite = useSearchParam('lite')
 
-  const params: any = {}
-  if (lite) params.lite = lite
+  const components = React.useMemo(
+    () => ({
+      nextImage: Image,
+      nextLink: Link,
+      Code,
+      Collection,
+      Equation,
+      Pdf,
+      Modal,
+      Tweet,
+      Header: NotionPageHeader
+    }),
+    []
+  )
+
+  const twitterContextValue = React.useMemo(() => {
+    if (!recordMap) {
+      return null
+    }
+
+    return {
+      tweetAstMap: (recordMap as any).tweetAstMap || {},
+      swrOptions: {
+        fetcher: (id: string) =>
+          fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
+      }
+    }
+  }, [recordMap])
 
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
-  const searchParams = new URLSearchParams(params)
 
   const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+
+  const siteMapPageUrl = React.useMemo(() => {
+    const params: any = {}
+    if (lite) params.lite = lite
+
+    const searchParams = new URLSearchParams(params)
+    return mapPageUrl(site, recordMap, searchParams)
+  }, [site, recordMap, lite])
 
   if (router.isFallback) {
     return <Loading />
@@ -107,8 +141,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
     g.block = block
   }
 
-  const siteMapPageUrl = mapPageUrl(site, recordMap, searchParams)
-
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
@@ -121,40 +153,14 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
-      (block as PageBlock).format?.page_cover ||
-      config.defaultPageCover,
+    (block as PageBlock).format?.page_cover ||
+    config.defaultPageCover,
     block
   )
-
-  const socialImageCoverPosition =
-    (block as PageBlock).format?.page_cover_position ??
-    config.defaultPageCoverPosition
-  const socialImageObjectPosition = socialImageCoverPosition
-    ? `center ${(1 - socialImageCoverPosition) * 100}%`
-    : null
-
-  const blockIcon = getBlockIcon(block, recordMap)
-  const socialAuthorImage = mapImageUrl(
-    blockIcon && isUrl(blockIcon) ? blockIcon : config.defaultPageIcon,
-    block
-  )
-
-  const socialAuthor =
-    getPageProperty<string>('Author', block, recordMap) || config.author
 
   const socialDescription =
     getPageProperty<string>('Description', block, recordMap) ||
     config.description
-
-  const timePublished = getPageProperty<number>('Published', block, recordMap)
-  const datePublished = timePublished ? new Date(timePublished) : undefined
-  const socialDate =
-    isBlogPost && datePublished
-      ? `${datePublished.toLocaleString('en-US', {
-          month: 'long'
-        })} ${datePublished.getFullYear()}`
-      : undefined
-  const socialDetail = socialDate || site.domain
 
   let comments: React.ReactNode = null
   let pageAside: React.ReactNode = null
@@ -165,7 +171,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       comments = (
         <ReactGiscus darkMode={darkMode.value} />
       )
-    } 
+    }
     const tweet = getPageTweet(block, recordMap)
     if (tweet) {
       pageAside = <PageActions tweet={tweet} />
@@ -175,24 +181,13 @@ export const NotionPage: React.FC<types.PageProps> = ({
   }
 
   return (
-    <TwitterContextProvider
-      value={{
-        tweetAstMap: (recordMap as any).tweetAstMap || {},
-        swrOptions: {
-          fetcher: (id) =>
-            fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
-        }
-      }}
-    >
+    <TwitterContextProvider value={twitterContextValue}>
       <PageHead
+        pageId={pageId}
         site={site}
         title={title}
         description={socialDescription}
         image={socialImage}
-        imageObjectPosition={socialImageObjectPosition}
-        author={socialAuthor}
-        authorImage={socialAuthorImage}
-        detail={socialDetail}
         url={canonicalPageUrl}
       />
 
@@ -205,16 +200,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           styles.notion,
           pageId === site.rootNotionPageId && 'index-page'
         )}
-        components={{
-          nextImage: Image,
-          nextLink: Link,
-          Code,
-          Collection,
-          Equation,
-          Pdf,
-          Modal,
-          Tweet
-        }}
+        components={components}
         recordMap={recordMap}
         rootPageId={site.rootNotionPageId}
         rootDomain={site.domain}
@@ -229,15 +215,10 @@ export const NotionPage: React.FC<types.PageProps> = ({
         defaultPageCoverPosition={config.defaultPageCoverPosition}
         mapPageUrl={siteMapPageUrl}
         mapImageUrl={mapImageUrl}
-        searchNotion={searchNotion}
         pageFooter={comments}
+        searchNotion={config.isSearchEnabled ? searchNotion : null}
         pageAside={pageAside}
-        footer={
-          <Footer
-            isDarkMode={darkMode.value}
-            toggleDarkMode={darkMode.toggle}
-          />
-        }
+        footer={<Footer />}
       />
 
     </TwitterContextProvider>
