@@ -15,7 +15,12 @@ import { Tweet, TwitterContextProvider } from 'react-static-tweets'
 import { NotionRenderer } from 'react-notion-x'
 
 // utils
-import { getBlockTitle, getPageProperty } from 'notion-utils'
+import {
+  getBlockTitle,
+  getPageProperty,
+  parsePageId,
+  normalizeTitle
+} from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
 import { getPageTweet } from 'lib/get-page-tweet'
@@ -34,6 +39,7 @@ import { PageSocial } from './PageSocial'
 const ReactGiscus = dynamic(() => import('./ReactGiscus'))
 import { NotionPageHeader } from './NotionPageHeader'
 import { GitHubShareButton } from './GitHubShareButton'
+import { HeroHeader } from './HeroHeader'
 
 import styles from './styles.module.css'
 
@@ -69,11 +75,30 @@ const Modal = dynamic(
   }
 )
 
+const propertySelectValue = (
+  { schema, value, key, pageHeader },
+  defaultFn: () => React.ReactNode
+) => {
+  value = normalizeTitle(value)
+
+  if (pageHeader && schema.type === 'multi_select' && value) {
+    return (
+      <Link href={`/tags/${value}`} key={key}>
+        <a>{defaultFn()}</a>
+      </Link>
+    )
+  }
+
+  return defaultFn()
+}
+
 export const NotionPage: React.FC<types.PageProps> = ({
   site,
   recordMap,
   error,
-  pageId
+  pageId,
+  tagsPage,
+  propertyToFilterName
 }) => {
   const router = useRouter()
   const lite = useSearchParam('lite')
@@ -88,7 +113,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
       Pdf,
       Modal,
       Tweet,
-      Header: NotionPageHeader
+      Header: NotionPageHeader,
+
+      propertySelectValue
     }),
     []
   )
@@ -131,7 +158,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
-  const title = getBlockTitle(block, recordMap) || site.name
+  const name = getBlockTitle(block, recordMap) || site.name
+  const title =
+    tagsPage && propertyToFilterName ? `${propertyToFilterName} ${name}` : name
 
   if (!config.isServer) {
     // add important objects to the window global for easy debugging
@@ -148,6 +177,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
   //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
   const isBlogPost =
     block.type === 'page' && block.parent_table === 'collection'
+  const isBioPage =
+    parsePageId(block.id) === parsePageId('8d0062776d0c4afca96eb1ace93a7538')
+
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
 
@@ -164,6 +196,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
 
   let comments: React.ReactNode = null
   let pageAside: React.ReactNode = null
+  let pageCover: React.ReactNode = null
 
   // only display comments and page actions on blog post pages
   if (isBlogPost) {
@@ -178,6 +211,12 @@ export const NotionPage: React.FC<types.PageProps> = ({
     }
   } else {
     pageAside = <PageSocial />
+  }
+
+  if (isBioPage) {
+    pageCover = (
+      <HeroHeader className='notion-page-cover-wrapper notion-page-cover-hero' />
+    )
   }
 
   return (
@@ -198,7 +237,8 @@ export const NotionPage: React.FC<types.PageProps> = ({
       <NotionRenderer
         bodyClassName={cs(
           styles.notion,
-          pageId === site.rootNotionPageId && 'index-page'
+          pageId === site.rootNotionPageId && 'index-page',
+          tagsPage && 'tags-page'
         )}
         components={components}
         recordMap={recordMap}
@@ -213,12 +253,15 @@ export const NotionPage: React.FC<types.PageProps> = ({
         defaultPageIcon={config.defaultPageIcon}
         defaultPageCover={config.defaultPageCover}
         defaultPageCoverPosition={config.defaultPageCoverPosition}
+        linkTableTitleProperties={false}
         mapPageUrl={siteMapPageUrl}
         mapImageUrl={mapImageUrl}
         pageFooter={comments}
         searchNotion={config.isSearchEnabled ? searchNotion : null}
         pageAside={pageAside}
         footer={<Footer />}
+        pageTitle={tagsPage && propertyToFilterName ? title : undefined}
+        pageCover={pageCover}
       />
 
       <GitHubShareButton />

@@ -4,6 +4,9 @@ Suggestions and pull requests are highly encouraged. Have a look at the [open is
 
 ## Development
 
+**If your feature/fix/issue is related to some basic feature provided by Starter Kit, follow the guide below. (recommended)**
+**Otherwise, you can use same way to develop `https://github.com/fky2015/nexon`**
+
 To develop the project locally, you'll need a recent version of Node.js and `yarn` v1 installed globally.
 
 To get started, clone the repo and run `yarn` from the root directory:
