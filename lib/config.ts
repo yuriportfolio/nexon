@@ -1,7 +1,7 @@
 /**
  * Site-wide app configuration.
  *
- * This file pulls from the root "site.config.js" as well as environment variables
+ * This file pulls from the root "site.config.ts" as well as environment variables
  * for optional depenencies.
  */
 
@@ -9,8 +9,12 @@ import { parsePageId } from 'notion-utils'
 import { GiscusProps } from '@giscus/react'
 import posthog from 'posthog-js'
 import { getEnv, getSiteConfig } from './get-config-value'
-import { PageUrlOverridesMap, PageUrlOverridesInverseMap } from './types'
-import Config = posthog.Config
+import { NavigationLink } from './site-config'
+import {
+  PageUrlOverridesInverseMap,
+  PageUrlOverridesMap,
+  NavigationStyle
+} from './types'
 
 export const environment = process.env.NODE_ENV || 'development'
 export const isDev = environment === 'development'
@@ -57,9 +61,9 @@ export const description: string = getSiteConfig('description', 'Notion Blog')
 
 // social accounts
 export const twitter: string | null = getSiteConfig('twitter', null)
-export const zhihu: string | null = getSiteConfig('zhihu', null)
 export const github: string | null = getSiteConfig('github', null)
 export const linkedin: string | null = getSiteConfig('linkedin', null)
+export const zhihu: string | null = getSiteConfig('zhihu', null)
 
 // default notion values for site-wide consistency (optional; may be overridden on a per-page basis)
 export const defaultPageIcon: string | null = getSiteConfig(
@@ -87,11 +91,24 @@ export const isTweetEmbedSupportEnabled: boolean = getSiteConfig(
   true
 )
 
-// where it all starts -- the site's root Notion page
+// Optional whether or not to include the Notion ID in page URLs or just use slugs
 export const includeNotionIdInUrls: boolean = getSiteConfig(
   'includeNotionIdInUrls',
   !!isDev
 )
+
+export const navigationStyle: NavigationStyle = getSiteConfig(
+  'navigationStyle',
+  'default'
+)
+
+export const navigationLinks: Array<NavigationLink | null> = getSiteConfig(
+  'navigationLinks',
+  null
+)
+
+// Optional site search
+export const isSearchEnabled: boolean = getSiteConfig('isSearchEnabled', true)
 
 // ----------------------------------------------------------------------------
 
@@ -137,16 +154,9 @@ export const fathomConfig = fathomId
   : undefined
 
 export const googleAnalyticsID = isDev ? null : process.env.NEXT_PUBLIC_GA_ID
-
-// PostHog automatically filters events coming from localhost
-export const postHogId = process.env.NEXT_PUBLIC_POSTHOG_ID
-export const postHogConfig: Config = {
-  // See https://posthog.com/docs/integrate/client/js#config
-  api_host: 'https://app.posthog.com',
-  loaded: (posthog_instance) => {
-    console.debug(`PostHog loaded`, posthog_instance)
-    // posthog_instance.identify(unique user id)
-  }
+export const posthogId = process.env.NEXT_PUBLIC_POSTHOG_ID
+export const posthogConfig: posthog.Config = {
+  api_host: 'https://app.posthog.com'
 }
 
 function cleanPageUrlMap(
