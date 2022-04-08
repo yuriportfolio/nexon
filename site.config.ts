@@ -15,7 +15,7 @@ export default siteConfig({
 
   // basic site info (required)
   name: 'FKYnJYQ',
-  domain: 'blog.fkynjyq.com',
+  domain: 'nexon-demo.vercel.app',
   author: 'Feng Kaiyu',
 
   // open graph metadata (optional)
