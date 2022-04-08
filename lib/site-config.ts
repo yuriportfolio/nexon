@@ -1,7 +1,9 @@
 import * as types from './types'
+import { GiscusProps } from '@giscus/react'
 
 export interface SiteConfig {
   rootNotionPageId: string
+  rootNotionTestPageId?: string
   rootNotionSpaceId?: string
 
   name: string
@@ -29,6 +31,11 @@ export interface SiteConfig {
 
   navigationStyle?: types.NavigationStyle
   navigationLinks?: Array<NavigationLink>
+
+  giscusGithubConfig?: GiscusProps
+
+  OverrideCreatedTime?: string
+  OverrideLastEditedTime?: string
 }
 
 export interface NavigationLink {

@@ -2,12 +2,12 @@ import { siteConfig } from './lib/site-config'
 
 export default siteConfig({
   // the site's root Notion page (required)
-  rootNotionPageId: '616010038b314232972ce9f23ccecc97',
+  rootNotionPageId: '3ed6053553a04e0698a981797052d7cb',
 
   // It's will be used as the root page when running `yarn dev`. (optional)
   // If you are suffering from the slow loading or compiling speed, set this to a smaller page.
   // Just leave `null` if you don't want to use it.
-  rootNotionTestPageId: '6f55bc87f5ea429cb9711b67ac00ea90',
+  rootNotionTestPageId: null,
 
   // if you want to restrict pages to a single notion workspace (optional)
   // (this should be a Notion ID; see the docs for how to extract this)
@@ -20,8 +20,6 @@ export default siteConfig({
 
   // open graph metadata (optional)
   description: 'Code for Good.',
-  socialImageTitle: 'Feng Kaiyu',
-  socialImageSubtitle: '一个有技术和思考的角落',
 
   // social usernames (optional)
   twitter: 'FKYnJYQ',
@@ -34,7 +32,7 @@ export default siteConfig({
   defaultPageCover: null,
   defaultPageCoverPosition: 0.5,
 
-  // Giscus comments via Github Discusstion (optional, has a priority over Utterances)
+  // Giscus comments via Github Discusstion (optional)
   //
   // To generate the following configs, visit https://giscus.app/.
   giscusGithubConfig: {
