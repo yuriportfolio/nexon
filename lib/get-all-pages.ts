@@ -29,7 +29,7 @@ export async function getAllPagesImpl(
         throw new Error(`Error loading page "${pageId}"`)
       }
 
-      let canonicalPageId = getCanonicalPageId(pageId, recordMap, {
+      const canonicalPageId = getCanonicalPageId(pageId, recordMap, {
         uuid
       })
 
@@ -75,15 +75,6 @@ export async function getAllPagesImpl(
       }
       if (!createdTime)
         createdTime = block?.created_time ? new Date(block.created_time) : null
-
-      // Insert SlugName instead of PageId.
-      if (block) {
-        const slugName = getPageProperty('SlugName', block, recordMap)
-
-        if (slugName) {
-          canonicalPageId = slugName as string
-        }
-      }
 
       const canonicalPageData: types.CanonicalPageData = {
         pageID: pageId,
