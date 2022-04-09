@@ -29,8 +29,16 @@ html {
 }
 
 body {
-  font-family: var(--base-font-family);
+  font-family: var(--base-font-family) !important;
   overflow-x: hidden;
+}
+
+.notion-title {
+  font-family: var(--title-font-family) !important;
+}
+
+code {
+  font-family: var(--monospace-font-family) !important;
 }
 
 .static-tweet blockquote {

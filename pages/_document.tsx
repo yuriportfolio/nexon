@@ -29,7 +29,7 @@ export default class MyDocument extends Document {
             <link rel='manifest' href='/manifest.json' />
           </Head>
 
-          <body>
+          <body className="bg-slate-100">
             <script
               dangerouslySetInnerHTML={{
                 __html: `

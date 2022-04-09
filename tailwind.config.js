@@ -1,8 +1,15 @@
-const { colors } = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
+
+// temporary fix, see https://github.com/tailwindlabs/tailwindcss/issues/4690#issuecomment-1046087220
+delete colors['lightBlue'];
+delete colors['warmGray'];
+delete colors['trueGray'];
+delete colors['coolGray'];
+delete colors['blueGray'];
 
 module.exports = {
   purge: ["./**/*.{tsx,jsx,css}"],
-  darkMode: 'media', // or 'media' or 'class'
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {},
     colors: {
@@ -81,9 +88,6 @@ module.exports = {
       },
       black: '#212121'
     }
-  },
-  variants: {
-    extend: {}
   },
   plugins: []
 }

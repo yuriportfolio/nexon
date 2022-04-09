@@ -26,6 +26,8 @@ import 'styles/prism-theme.css'
 // Code block and prismjs
 // import 'prismjs/components/prism-typescript'
 
+import 'styles/custom.css'
+
 import React from 'react'
 import { useRouter } from 'next/router'
 import Script from 'next/script'
