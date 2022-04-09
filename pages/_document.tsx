@@ -29,15 +29,15 @@ export default class MyDocument extends Document {
             <link rel='manifest' href='/manifest.json' />
           </Head>
 
-          <body className="bg-slate-100">
+          <body className="bg-slate-100 dark:bg-black dark:text-white">
             <script
               dangerouslySetInnerHTML={{
                 __html: `
 /** Inlined version of noflash.js from use-dark-mode */
 ;(function () {
   var storageKey = 'darkMode'
-  var classNameDark = 'dark-mode'
-  var classNameLight = 'light-mode'
+  var classNameDark = 'dark'
+  var classNameLight = 'light'
 
   function setClassOnDocumentBody(darkMode) {
     document.body.classList.add(darkMode ? classNameDark : classNameLight)

@@ -137,7 +137,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
 
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+  const darkMode = useDarkMode(false, { classNameDark: 'dark', classNameLight: 'light' })
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {}

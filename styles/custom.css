@@ -1,8 +1,8 @@
 .notion-frame {
-  @apply bg-slate-100;
+  @apply bg-slate-100 dark:bg-black;
 }
 .notion-collection-card {
-  @apply bg-white shadow-md hover:bg-white hover:shadow-lg focus:shadow-xl transition-all ease-in-out duration-500;
+  @apply bg-white dark:bg-slate-800 shadow-md hover:bg-white hover:shadow-lg focus:shadow-xl transition-all ease-in-out duration-500;
 }
 
 .notion-link {

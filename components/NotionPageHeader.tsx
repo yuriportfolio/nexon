@@ -14,7 +14,7 @@ import styles from './styles.module.css'
 export const NotionPageHeader: React.FC<{
   block: types.CollectionViewPageBlock | types.PageBlock
 }> = ({ block }) => {
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+  const darkMode = useDarkMode(false, { classNameDark: 'dark', classNameLight: 'light' })
   const [hasMounted, setHasMounted] = React.useState(false)
   const { components, mapPageUrl } = useNotionContext()
 

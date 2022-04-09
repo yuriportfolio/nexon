@@ -16,7 +16,7 @@ const year = new Date().getFullYear()
 
 export const FooterImpl: React.FC = () => {
   const [hasMounted, setHasMounted] = React.useState(false)
-  const darkMode = useDarkMode(false, { classNameDark: 'dark-mode' })
+  const darkMode = useDarkMode(false, { classNameDark: 'dark', classNameLight: 'light' })
 
   const onToggleDarkMode = React.useCallback(
     (e) => {
