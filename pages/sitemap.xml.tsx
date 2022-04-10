@@ -43,7 +43,7 @@ const createSitemap = (siteMap: SiteMap) =>
     </url>
 
     ${Object.entries(siteMap.canonicalPageMap)
-    .filter(([_, data]) =>
+    .filter(([, data]) =>
       uuidToId(data.pageID) !== siteMap.site.rootNotionPageId
     )
     .map(([canonicalPagePath, canonicalPageData]) =>
