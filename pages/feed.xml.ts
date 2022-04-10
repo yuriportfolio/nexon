@@ -4,6 +4,7 @@ import RSS from 'rss';
 import { host, name, description, author } from '../lib/config';
 import { getSiteMaps } from '../lib/get-site-maps'
 import * as types from 'lib/types'
+import { uuidToId } from 'notion-utils';
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
@@ -40,6 +41,10 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const pageMap = siteMap.canonicalPageMap
     Object.keys(pageMap).map(pageURL => {
       const pageData = pageMap[pageURL] as types.CanonicalPageData
+      if (uuidToId(pageData.pageID) === siteMap.site.rootNotionPageId) {
+        // Skip the root page.
+        return
+      }
       feed.item({
         title: pageData.title,
         // description: pageData.description,

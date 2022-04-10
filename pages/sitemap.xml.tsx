@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next'
 import { SiteMap } from 'lib/types'
 import { host } from 'lib/config'
 import { getSiteMaps } from 'lib/get-site-maps'
+import { uuidToId } from 'notion-utils'
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   if (req.method !== 'GET') {
@@ -42,6 +43,9 @@ const createSitemap = (siteMap: SiteMap) =>
     </url>
 
     ${Object.entries(siteMap.canonicalPageMap)
+    .filter(([_, data]) =>
+      uuidToId(data.pageID) !== siteMap.site.rootNotionPageId
+    )
     .map(([canonicalPagePath, canonicalPageData]) =>
       `
           <url>

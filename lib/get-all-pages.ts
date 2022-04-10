@@ -83,7 +83,7 @@ export async function getAllPagesImpl(
         title,
       }
 
-      console.log(canonicalPageData)
+      console.log(pageId, canonicalPageData)
 
       console.groupEnd()
 
