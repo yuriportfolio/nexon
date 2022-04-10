@@ -1,3 +1,28 @@
+
+<p align="center">
+  <a href="https://nexon-demo.vercel.app/">
+    <img alt="Example article page" src="https://s2.loli.net/2022/04/10/2lCV7ijT9J8yWGm.png" width="689">
+  </a>
+</p>
+
+Nexon is a modified version of [Starter Kit][StartKit] with a special focus on better blogging experience.
+
+The Goals of Nexon:
+- Be compatible with latest [Starter Kit][StartKit].
+- Make sure users can seamlessly migrate from Starter Kit to Nexon.
+- Add custom features (to bring a better blogging experience) that may not be suitable to merge into [Starter Kit][StartKit].
+
+More information is available on [wiki](https://github.com/fky2015/nexon/wiki).
+
+
+(Down below is the [Starter Kit's readme][StartKit]. I'm leaving it as is. All credit goes to [@transitive-bullshit](https://github.com/transitive-bullshit/))
+
+**You are also encouraged to use the [Starter Kit][StartKit]. It's a well-developed project!** 
+
+[StartKit]: https://github.com/transitive-bullshit/nextjs-notion-starter-kit
+
+---
+
 <p align="center">
   <a href="https://transitivebullsh.it/nextjs-notion-starter-kit">
     <img alt="Example article page" src="https://user-images.githubusercontent.com/552829/160132094-12875e09-41ec-450a-80fc-ae8cd488129d.jpg" width="689">
