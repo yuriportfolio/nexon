@@ -91,6 +91,10 @@
   color: #2795e9;
 }
 
+.rss:hover {
+  color: #f26522;
+}
+
 .zhihu:hover {
   color: #0066ff;
 }

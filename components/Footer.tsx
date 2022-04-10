@@ -4,6 +4,7 @@ import { FaTwitter } from '@react-icons/all-files/fa/FaTwitter'
 import { FaZhihu } from '@react-icons/all-files/fa/FaZhihu'
 import { FaGithub } from '@react-icons/all-files/fa/FaGithub'
 import { FaLinkedin } from '@react-icons/all-files/fa/FaLinkedin'
+import { FaRss } from '@react-icons/all-files/fa/FaRss'
 import { IoSunnyOutline } from '@react-icons/all-files/io5/IoSunnyOutline'
 import { IoMoonSharp } from '@react-icons/all-files/io5/IoMoonSharp'
 import * as config from 'lib/config'
@@ -48,6 +49,14 @@ export const FooterImpl: React.FC = () => {
       </div>
 
       <div className={styles.social}>
+        <a
+          className={styles.rss}
+          href="/feed.xml"
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <FaRss />
+        </a>
         {config.twitter && (
           <a
             className={styles.twitter}
