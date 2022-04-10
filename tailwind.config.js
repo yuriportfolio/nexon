@@ -8,7 +8,7 @@ delete colors['coolGray'];
 delete colors['blueGray'];
 
 module.exports = {
-  purge: ["./**/*.{tsx,jsx,css}"],
+  content: ["./**/*.{tsx,jsx,css}"],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
     extend: {},
