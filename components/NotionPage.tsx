@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -19,7 +19,8 @@ import {
   getBlockTitle,
   getPageProperty,
   parsePageId,
-  normalizeTitle
+  normalizeTitle,
+  formatDate
 } from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
@@ -29,7 +30,6 @@ import * as types from 'lib/types'
 import * as config from 'lib/config'
 
 // components
-import { CustomFont } from './CustomFont'
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
 import { PageHead } from './PageHead'
@@ -48,8 +48,45 @@ import styles from './styles.module.css'
 // -----------------------------------------------------------------------------
 
 const Code = dynamic(() =>
-  import('react-notion-x/build/third-party/code').then((m) => m.Code)
+  import('react-notion-x/build/third-party/code').then(async (m) => {
+    // add / remove any prism syntaxes here
+    await Promise.all([
+      import('prismjs/components/prism-markup-templating.js'),
+      import('prismjs/components/prism-markup.js'),
+      import('prismjs/components/prism-bash.js'),
+      import('prismjs/components/prism-c.js'),
+      import('prismjs/components/prism-cpp.js'),
+      import('prismjs/components/prism-csharp.js'),
+      import('prismjs/components/prism-docker.js'),
+      import('prismjs/components/prism-java.js'),
+      import('prismjs/components/prism-js-templates.js'),
+      import('prismjs/components/prism-coffeescript.js'),
+      import('prismjs/components/prism-diff.js'),
+      import('prismjs/components/prism-git.js'),
+      import('prismjs/components/prism-go.js'),
+      import('prismjs/components/prism-graphql.js'),
+      import('prismjs/components/prism-handlebars.js'),
+      import('prismjs/components/prism-less.js'),
+      import('prismjs/components/prism-makefile.js'),
+      import('prismjs/components/prism-markdown.js'),
+      import('prismjs/components/prism-objectivec.js'),
+      import('prismjs/components/prism-ocaml.js'),
+      import('prismjs/components/prism-python.js'),
+      import('prismjs/components/prism-reason.js'),
+      import('prismjs/components/prism-rust.js'),
+      import('prismjs/components/prism-sass.js'),
+      import('prismjs/components/prism-scss.js'),
+      import('prismjs/components/prism-solidity.js'),
+      import('prismjs/components/prism-sql.js'),
+      import('prismjs/components/prism-stylus.js'),
+      import('prismjs/components/prism-swift.js'),
+      import('prismjs/components/prism-wasm.js'),
+      import('prismjs/components/prism-yaml.js')
+    ])
+    return m.Code
+  })
 )
+
 const Collection = dynamic(() =>
   import('react-notion-x/build/third-party/collection').then(
     (m) => m.Collection
@@ -92,6 +129,47 @@ const propertySelectValue = (
   return defaultFn()
 }
 
+const propertyLastEditedTimeValue = (
+  { block, pageHeader },
+  defaultFn: () => React.ReactNode
+) => {
+  if (pageHeader && block?.last_edited_time) {
+    return `Last updated ${formatDate(block?.last_edited_time, {
+      month: 'long'
+    })}`
+  }
+
+  return defaultFn()
+}
+
+const propertyDateValue = (
+  { data, schema, pageHeader },
+  defaultFn: () => React.ReactNode
+) => {
+  if (pageHeader && schema?.name?.toLowerCase() === 'published') {
+    const publishDate = data?.[0]?.[1]?.[0]?.[1]?.start_date
+
+    if (publishDate) {
+      return `Published ${formatDate(publishDate, {
+        month: 'long'
+      })}`
+    }
+  }
+
+  return defaultFn()
+}
+
+const propertyTextValue = (
+  { schema, pageHeader },
+  defaultFn: () => React.ReactNode
+) => {
+  if (pageHeader && schema?.name?.toLowerCase() === 'author') {
+    return <b>{defaultFn()}</b>
+  }
+
+  return defaultFn()
+}
+
 export const NotionPage: React.FC<types.PageProps> = ({
   site,
   recordMap,
@@ -113,9 +191,11 @@ export const NotionPage: React.FC<types.PageProps> = ({
       Pdf,
       Modal,
       Tweet,
+      propertySelectValue,
       Header: NotionPageHeader,
-
-      propertySelectValue
+      propertyLastEditedTimeValue,
+      propertyTextValue,
+      propertyDateValue
     }),
     []
   )
@@ -177,8 +257,9 @@ export const NotionPage: React.FC<types.PageProps> = ({
   //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
   const isBlogPost =
     block.type === 'page' && block.parent_table === 'collection'
+  // TODO: bio page
   const isBioPage =
-    parsePageId(block.id) === parsePageId('8d0062776d0c4afca96eb1ace93a7538')
+    parsePageId(block.id) === parsePageId('BIOPAGE_ID')
 
   const showTableOfContents = !!isBlogPost
   const minTableOfContentsItems = 3
@@ -229,8 +310,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
         image={socialImage}
         url={canonicalPageUrl}
       />
-
-      <CustomFont site={site} />
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
 
