@@ -9,6 +9,10 @@
   @apply transition-all ease-in-out duration-300;
 }
 
+.notion-callout-text {
+  @apply overflow-clip;
+}
+
 .notion-header {
   @apply h-24 sm:h-12 bg-slate-100;
 }
