@@ -95,8 +95,8 @@ code[class*='language-'],
 pre[class*='language-'] {
   color: rgba(31, 41, 55, 1);
 }
-.dark code[class*='language-'],
-.dark pre[class*='language-'] {
+.dark,
+.dark {
   color: rgba(249, 250, 251, 1);
 }
 pre::-webkit-scrollbar {

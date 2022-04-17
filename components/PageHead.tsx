@@ -31,6 +31,8 @@ export const PageHead: React.FC<
         href='https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap'
         rel='stylesheet'
       />
+      <meta name='robots' content='index,follow' />
+      <meta property='og:type' content='website' />
 
       {site && (
         <>

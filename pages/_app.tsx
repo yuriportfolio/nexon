@@ -24,10 +24,11 @@ import 'styles/prism-theme.css'
 
 import 'styles/custom.css'
 
-import React from 'react'
-import { useRouter } from 'next/router'
+import * as React from 'react'
 import Script from 'next/script'
 import * as Fathom from 'fathom-client'
+import { useRouter } from 'next/router'
+import { ThemeProvider } from 'next-themes'
 import posthog from 'posthog-js'
 
 import { bootstrap } from 'lib/bootstrap-client'
@@ -66,28 +67,29 @@ export default function App({ Component, pageProps }) {
     }
   }, [router.events])
 
+  // Google Analytics support.
   return (
-    // Google Analytics support.
-    <>
-      {
-        googleAnalyticsID && <>
-          <Script
-            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsID}`}
-            strategy="afterInteractive"
-          />
-          <Script id="google-analytics" strategy="afterInteractive">
-            {`
+    <ThemeProvider attribute='class' disableTransitionOnChange>
+      <>
+        {
+          googleAnalyticsID && <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', '${googleAnalyticsID}');
         `}
-          </Script>
-        </>
-      }
-      < Component {...pageProps} />
-    </>
-
+            </Script>
+          </>
+        }
+        < Component {...pageProps} />
+      </>
+    </ThemeProvider>
   )
 }

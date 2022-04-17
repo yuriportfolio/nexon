@@ -29,14 +29,6 @@
   resolved "https://registry.npmjs.org/@fisch0920/medium-zoom/-/medium-zoom-1.0.7.tgz"
   integrity sha512-hPUrgVM/QvsZdZzDTPyL1C1mOtEw03RqTLmK7ZlJ8S/64u4O4O5BvPvjB/9kyLtE6iVaS9UDRAMSwmM9uh2JIw==
 
-"@fisch0920/use-dark-mode@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/@fisch0920/use-dark-mode/-/use-dark-mode-2.4.0.tgz"
-  integrity sha512-R5onciu81CCOxWVIJcRjp1PfSfBI5fIfxYR2jqydc0nuGWrn4ZB4ciDXiv36PNX5mFIbAgPfjUF0Z5lhSI62TA==
-  dependencies:
-    "@use-it/event-listener" "^0.1.2"
-    use-persisted-state "^0.3.0"
-
 "@giscus/react@^1.1.2":
   version "1.1.2"
   resolved "https://registry.npmmirror.com/@giscus/react/-/react-1.1.2.tgz#c97f06aab1272c0fbe567c69ebffe3bad7206e7a"
@@ -104,17 +96,17 @@
 
 "@next/swc-android-arm-eabi@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-android-arm-eabi/-/swc-android-arm-eabi-12.1.3.tgz#2b3f30814dfbee3a62b23d3dbbd1b6ee28743ad5"
+  resolved "https://registry.yarnpkg.com/@next/swc-android-arm-eabi/-/swc-android-arm-eabi-12.1.3.tgz#2b3f30814dfbee3a62b23d3dbbd1b6ee28743ad5"
   integrity sha512-TqH8Ua/6k6RFyhpS/Nu9vm7Las9RkJx4P27ynhGog/gU2F9qwnwu3U/7sOnpnR13bxXCWQkK6QvOFtqlA0urQw==
 
 "@next/swc-android-arm64@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-android-arm64/-/swc-android-arm64-12.1.3.tgz#ed6f8e2379583e82859ce0783ca052a7807f6f67"
+  resolved "https://registry.yarnpkg.com/@next/swc-android-arm64/-/swc-android-arm64-12.1.3.tgz#ed6f8e2379583e82859ce0783ca052a7807f6f67"
   integrity sha512-BQiPrCwFPNzqmqE95mAReH5XAKxmB5Y845ihIc1y37tcXkl+ap1wU9MBjIX1tUOYmzLm0cZJnE6AG3ek2nLDVw==
 
 "@next/swc-darwin-arm64@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.1.3.tgz#104a038e86d417d4c99b619f1163a8400b554915"
+  resolved "https://registry.yarnpkg.com/@next/swc-darwin-arm64/-/swc-darwin-arm64-12.1.3.tgz#104a038e86d417d4c99b619f1163a8400b554915"
   integrity sha512-1MszWZF4m/1jYxRKJg2eEkz2s2tbGPx+HDYZlZDpMwO4+8RU0pu7x8SfVWEqf4g2kSC4W9nMNlDysY39jdcZ2w==
 
 "@next/swc-darwin-x64@12.1.3":
@@ -124,42 +116,42 @@
 
 "@next/swc-linux-arm-gnueabihf@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-arm-gnueabihf/-/swc-linux-arm-gnueabihf-12.1.3.tgz#f46e6a9fd3b5f16da3704c4808ae7f28c11a2dcc"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm-gnueabihf/-/swc-linux-arm-gnueabihf-12.1.3.tgz#f46e6a9fd3b5f16da3704c4808ae7f28c11a2dcc"
   integrity sha512-udQe5Gth99CjjL+Lc5xZq3KQv+eelGTdFnrYv+ggaoeenM6LI4RSvHGf87PSGlbhP6c3pM28cLnWTcF/puuv2Q==
 
 "@next/swc-linux-arm64-gnu@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-12.1.3.tgz#6cf2a1076acedf4e58918b6829c70385f0a4bbd9"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-gnu/-/swc-linux-arm64-gnu-12.1.3.tgz#6cf2a1076acedf4e58918b6829c70385f0a4bbd9"
   integrity sha512-0rVc8A94o2CRgSghbtzHghkdpA+b2s3L6ue/D9RI39zRwLVCoLvobOwlNMR75U43T4Cmv2jgbhxvyaAJibU5Lg==
 
 "@next/swc-linux-arm64-musl@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-12.1.3.tgz#36a95485f14f5fa6e4efe2b789f240b37631d482"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-arm64-musl/-/swc-linux-arm64-musl-12.1.3.tgz#36a95485f14f5fa6e4efe2b789f240b37631d482"
   integrity sha512-MoXUjsPrVUe4Qqyew8tK9TiDhBt75lZnGECF7AFUEYGs5NqRcKAc2vPhQtke4QZqfI89+J1Wi4lbPHI2VqWXAA==
 
 "@next/swc-linux-x64-gnu@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.1.3.tgz#c17adb6943a6e51dfb7fd25636f4f732f5205223"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-gnu/-/swc-linux-x64-gnu-12.1.3.tgz#c17adb6943a6e51dfb7fd25636f4f732f5205223"
   integrity sha512-NJZa7Gq0lQlon74WFcWrsk0Y7UmAaNriAAxN6lyYdOHnBuQkriIDtv17Au/tcXyqLlfjcdzWs1LX+9FevKTtaw==
 
 "@next/swc-linux-x64-musl@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.1.3.tgz#25b6c26803533482760f2e752df7e18615c2bd39"
+  resolved "https://registry.yarnpkg.com/@next/swc-linux-x64-musl/-/swc-linux-x64-musl-12.1.3.tgz#25b6c26803533482760f2e752df7e18615c2bd39"
   integrity sha512-qK7wpSAXa7C4MjtQGjsp3uHgKKNlml4iwAPnk1ILGXgDRz2Cn1Dy1G7p/1berqsK3+zE7B0BuZ7TdyPHu5+kYQ==
 
 "@next/swc-win32-arm64-msvc@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-12.1.3.tgz#112fb4588b8810d3a040c7fe7e9bb8102eab3d5f"
+  resolved "https://registry.yarnpkg.com/@next/swc-win32-arm64-msvc/-/swc-win32-arm64-msvc-12.1.3.tgz#112fb4588b8810d3a040c7fe7e9bb8102eab3d5f"
   integrity sha512-p2/CYAZWm4I4IK2Dtlynp4diP1Q+daVYUzTo3JyyGGWx7y0ShkU8EDgT7MNSmBkisrTUADqr1W+HIkDVe5Z6vA==
 
 "@next/swc-win32-ia32-msvc@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.1.3.tgz#d34eedf12f652e4850d904423be5cbacf1fadb87"
+  resolved "https://registry.yarnpkg.com/@next/swc-win32-ia32-msvc/-/swc-win32-ia32-msvc-12.1.3.tgz#d34eedf12f652e4850d904423be5cbacf1fadb87"
   integrity sha512-LK9c4+Gp7G/ypUH3jksPqB2vhIWqg2AvgW3xih/y1AeCp0KYKgpS2DSkiW8gXbdIMFy9heBScKZQ5ShhEdXmjQ==
 
 "@next/swc-win32-x64-msvc@12.1.3":
   version "12.1.3"
-  resolved "https://registry.npmmirror.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.3.tgz#ee86499d94fa89b64c596e334ae49f42931223ec"
+  resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-12.1.3.tgz#ee86499d94fa89b64c596e334ae49f42931223ec"
   integrity sha512-+Hsp5rO0aTOPF/4rneLktpEKCfslyVa74kFtkbIUNdMgFrK5/CSYW7p4EHWbAY2gjvvf6yMVDrNd6fsSPPNqIw==
 
 "@nodelib/fs.scandir@2.1.5":
@@ -513,7 +505,7 @@
 
 "@types/json-buffer@~3.0.0":
   version "3.0.0"
-  resolved "https://registry.npmmirror.com/@types/json-buffer/-/json-buffer-3.0.0.tgz#85c1ff0f0948fc159810d4b5be35bf8c20875f64"
+  resolved "https://registry.yarnpkg.com/@types/json-buffer/-/json-buffer-3.0.0.tgz#85c1ff0f0948fc159810d4b5be35bf8c20875f64"
   integrity sha512-3YP80IxxFJB4b5tYC2SUPwkg0XQLiu0nWvhRgEatgjf+29IcWO9X1k8xRv5DGssJ/lCrjYTjQPcobJr2yWIVuQ==
 
 "@types/json-schema@^7.0.8", "@types/json-schema@^7.0.9":
@@ -720,11 +712,6 @@
   dependencies:
     "@typescript-eslint/types" "5.18.0"
     eslint-visitor-keys "^3.0.0"
-
-"@use-it/event-listener@^0.1.2":
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/@use-it/event-listener/-/event-listener-0.1.7.tgz"
-  integrity sha512-hgfExDzUU9uTRTPDCpw2s9jWTxcxmpJya3fK5ADpf5VDpSy8WYwY/kh28XE0tUcbsljeP8wfan48QvAQTSSa3Q==
 
 "@vercel/fetch-cached-dns@^2.0.2":
   version "2.1.0"
@@ -1097,10 +1084,15 @@ camelcase-css@^2.0.1:
   resolved "https://registry.npmmirror.com/camelcase-css/-/camelcase-css-2.0.1.tgz#ee978f6947914cc30c6b44741b6ed1df7f043fd5"
   integrity sha512-QOSvevhslijgYwRx6Rv7zKdMF8lbRmx+uQGx2+vDc+KI/eBnsy9kit5aj23AgGu3pa4t9AgwbnXWqS+iOY+2aA==
 
-caniuse-lite@^1.0.30001283, caniuse-lite@^1.0.30001317:
+caniuse-lite@^1.0.30001283:
   version "1.0.30001322"
   resolved "https://registry.npmjs.org/caniuse-lite/-/caniuse-lite-1.0.30001322.tgz"
   integrity sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==
+
+caniuse-lite@^1.0.30001317:
+  version "1.0.30001332"
+  resolved "https://registry.npmmirror.com/caniuse-lite/-/caniuse-lite-1.0.30001332.tgz#39476d3aa8d83ea76359c70302eafdd4a1d727dd"
+  integrity sha512-10T30NYOEQtN6C11YGg411yebhvpnC6Z102+B95eAsN0oB6KUs01ivE8u+G6FMIRtIrVlYXhL+LUwQ3/hXwDWw==
 
 chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
@@ -1288,7 +1280,7 @@ commander@^8.0.0:
 
 compress-brotli@^1.3.6:
   version "1.3.6"
-  resolved "https://registry.npmmirror.com/compress-brotli/-/compress-brotli-1.3.6.tgz#64bd6f21f4f3e9841dbac392f4c29218caf5e9d9"
+  resolved "https://registry.yarnpkg.com/compress-brotli/-/compress-brotli-1.3.6.tgz#64bd6f21f4f3e9841dbac392f4c29218caf5e9d9"
   integrity sha512-au99/GqZtUtiCBliqLFbWlhnCxn+XSYjwZ77q6mKN4La4qOXDoLVPZ50iXr0WmAyMxl8yqoq3Yq4OeQNPPkyeQ==
   dependencies:
     "@types/json-buffer" "~3.0.0"
@@ -1554,9 +1546,9 @@ duplexer@^0.1.2:
   integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
 
 electron-to-chromium@^1.4.84:
-  version "1.4.107"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.107.tgz"
-  integrity sha512-Huen6taaVrUrSy8o7mGStByba8PfOWWluHNxSHGBrCgEdFVLtvdQDBr9LBCF9Uci8SYxh28QNNMO0oC17wbGAg==
+  version "1.4.111"
+  resolved "https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.111.tgz#897613f6504f3f17c9381c7499a635b413e4df4e"
+  integrity sha512-/s3+fwhKf1YK4k7btOImOzCQLpUjS6MaPf0ODTNuT4eTM1Bg4itBpLkydhOzJmpmH6Z9eXFyuuK5czsmzRzwtw==
 
 element-resize-detector@^1.2.1:
   version "1.2.4"
@@ -1633,7 +1625,7 @@ es-to-primitive@^1.2.1:
 
 escalade@^3.1.1:
   version "3.1.1"
-  resolved "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz"
+  resolved "https://registry.npmmirror.com/escalade/-/escalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
   integrity sha512-k0er2gUkLf8O0zKJiAhmkTnJlTvINGv7ygDNPbeIsX/TJjGJZHuh9B2UxbsaEkmlEo9MfhrSzmhIlhRlI2GXnw==
 
 escape-string-regexp@5.0.0:
@@ -2710,7 +2702,7 @@ katex@^0.15.3:
 
 keyv@^4.0.0:
   version "4.2.2"
-  resolved "https://registry.npmmirror.com/keyv/-/keyv-4.2.2.tgz#4b6f602c0228ef4d8214c03c520bef469ed6b768"
+  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.2.2.tgz#4b6f602c0228ef4d8214c03c520bef469ed6b768"
   integrity sha512-uYS0vKTlBIjNCAUqrjlxmruxOEiZxZIHXyp32sdcGmP+ukFrmWUnE//RcPXJH3Vxrni1H2gsQbjHE0bH7MtMQQ==
   dependencies:
     compress-brotli "^1.3.6"
@@ -3062,6 +3054,11 @@ next-compose-plugins@^2.2.1:
   resolved "https://registry.npmmirror.com/next-compose-plugins/-/next-compose-plugins-2.2.1.tgz#020fc53f275a7e719d62521bef4300fbb6fde5ab"
   integrity sha512-OjJ+fV15FXO2uQXQagLD4C0abYErBjyjE0I0FHpOEIB8upw0hg1ldFP6cqHTJBH1cZqy96OeR3u1dJ+Ez2D4Bg==
 
+next-themes@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/next-themes/-/next-themes-0.1.1.tgz#122113a458bf1d1be5ffed66778ab924c106f82a"
+  integrity sha512-Iqxt6rhS/KfK/iHJ0tfFjTcdLEAI0AgwFuAFrMwLOPK5e+MI3I+fzyvBoS+VaOS+NldUiazurhgwYhrfV0VXsQ==
+
 next@^12.1.1:
   version "12.1.3"
   resolved "https://registry.npmjs.org/next/-/next-12.1.3.tgz"
@@ -3118,7 +3115,7 @@ node-fetch@*, node-fetch@^2.6.1:
 
 node-releases@^2.0.2:
   version "2.0.3"
-  resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.3.tgz"
+  resolved "https://registry.npmmirror.com/node-releases/-/node-releases-2.0.3.tgz#225ee7488e4a5e636da8da52854844f9d716ca96"
   integrity sha512-maHFz6OLqYxz+VQyCAtA3PTX4UP/53pa05fyDNc9CwjvJ0yEh6+xBwKsgCxMNhS8taUKBFYxfuiaD9U/55iFaw==
 
 normalize-package-data@^2.3.2:
@@ -4552,9 +4549,9 @@ tailwindcss@^3.0.23:
     quick-lru "^5.1.1"
     resolve "^1.22.0"
 
-tar-fs@*, tar-fs@^2.0.0, tar-fs@^2.1.1:
+tar-fs@^2.0.0, tar-fs@^2.1.1:
   version "2.1.1"
-  resolved "https://registry.npmmirror.com/tar-fs/-/tar-fs-2.1.1.tgz#489a15ab85f1f0befabb370b7de4f9eb5cbe8784"
+  resolved "https://registry.yarnpkg.com/tar-fs/-/tar-fs-2.1.1.tgz#489a15ab85f1f0befabb370b7de4f9eb5cbe8784"
   integrity sha512-V0r2Y9scmbDRLCNex/+hYzvp/zyYjvFbHPNgVTKfQvVrb6guiE/fxP+XblDNR011utopbkex2nM4dHNV6GDsng==
   dependencies:
     chownr "^1.1.1"
@@ -4798,13 +4795,6 @@ use-callback-ref@^1.2.3:
   version "1.2.5"
   resolved "https://registry.npmjs.org/use-callback-ref/-/use-callback-ref-1.2.5.tgz"
   integrity sha512-gN3vgMISAgacF7sqsLPByqoePooY3n2emTH59Ur5d/M8eg4WTWu1xp8i8DHjohftIyEx0S08RiYxbffr4j8Peg==
-
-use-persisted-state@^0.3.0:
-  version "0.3.3"
-  resolved "https://registry.npmjs.org/use-persisted-state/-/use-persisted-state-0.3.3.tgz"
-  integrity sha512-pCNlvYC8+XjRxwnIut4teGC9f2p9aD88R8OGseQGZa2dvqG/h1vEGk1vRE1IZG0Vf161UDpn+NlW4+UGubQflQ==
-  dependencies:
-    "@use-it/event-listener" "^0.1.2"
 
 use-sidecar@^1.0.1:
   version "1.0.5"
