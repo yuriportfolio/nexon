@@ -9,7 +9,7 @@ import BodyClassName from 'react-body-classname'
 import { useTheme } from 'next-themes'
 import { PageBlock } from 'notion-types'
 
-import { Tweet, TwitterContextProvider } from 'react-static-tweets'
+import TweetEmbed from 'react-tweet-embed'
 
 // core notion renderer
 import { NotionRenderer } from 'react-notion-x'
@@ -129,6 +129,10 @@ const propertySelectValue = (
   return defaultFn()
 }
 
+const Tweet = ({ id }: { id: string }) => {
+  return <TweetEmbed tweetId={id} />
+}
+
 const propertyLastEditedTimeValue = (
   { block, pageHeader },
   defaultFn: () => React.ReactNode
@@ -199,20 +203,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
     }),
     []
   )
-
-  const twitterContextValue = React.useMemo(() => {
-    if (!recordMap) {
-      return null
-    }
-
-    return {
-      tweetAstMap: (recordMap as any).tweetAstMap || {},
-      swrOptions: {
-        fetcher: (id: string) =>
-          fetch(`/api/get-tweet-ast/${id}`).then((r) => r.json())
-      }
-    }
-  }, [recordMap])
 
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
@@ -301,7 +291,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   }
 
   return (
-    <TwitterContextProvider value={twitterContextValue}>
+    <>
       <PageHead
         pageId={pageId}
         site={site}
@@ -344,6 +334,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
       />
 
       <GitHubShareButton />
-    </TwitterContextProvider>
+    </>
   )
 }
