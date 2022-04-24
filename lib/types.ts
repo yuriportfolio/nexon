@@ -18,15 +18,7 @@ export interface PageProps {
   propertyToFilterName?: string | string
 }
 
-export interface Model {
-  id: string
-  userId: string
-
-  createdAt: number
-  updatedAt: number
-}
-
-export interface Site extends Model {
+export interface Site {
   name: string
   domain: string
 
@@ -42,10 +34,6 @@ export interface Site extends Model {
   // opengraph metadata
   description?: string
   image?: string
-
-  timestamp: Date
-
-  isDisabled: boolean
 }
 
 export interface SiteMap {
@@ -60,7 +48,7 @@ export interface CanonicalPageMap {
 
 // All metadata (Notion Properties) goes here.
 export interface CanonicalPageData {
-  pageID: string
+  pageId: string
   lastEditedTime: Date
   createdTime: Date
   title: string

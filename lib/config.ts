@@ -13,7 +13,8 @@ import { NavigationLink } from './site-config'
 import {
   PageUrlOverridesInverseMap,
   PageUrlOverridesMap,
-  NavigationStyle
+  NavigationStyle,
+  Site
 } from './types'
 
 export const environment = process.env.NODE_ENV || 'development'
@@ -58,6 +59,7 @@ export const name: string = getSiteConfig('name')
 export const author: string = getSiteConfig('author')
 export const domain: string = getSiteConfig('domain')
 export const description: string = getSiteConfig('description', 'Notion Blog')
+export const language: string = getSiteConfig('language', 'en')
 
 // social accounts
 export const twitter: string | null = getSiteConfig('twitter', null)
@@ -139,6 +141,14 @@ export const api = {
 }
 
 // ----------------------------------------------------------------------------
+
+export const site: Site = {
+  domain,
+  name,
+  rootNotionPageId,
+  rootNotionSpaceId,
+  description
+}
 
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
 export const fathomConfig = fathomId

@@ -18,13 +18,11 @@ import { NotionRenderer } from 'react-notion-x'
 import {
   getBlockTitle,
   getPageProperty,
-  parsePageId,
   normalizeTitle,
   formatDate
 } from 'notion-utils'
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
-import { getPageTweet } from 'lib/get-page-tweet'
 import { searchNotion } from 'lib/search-notion'
 import * as types from 'lib/types'
 import * as config from 'lib/config'
@@ -33,13 +31,11 @@ import * as config from 'lib/config'
 import { Loading } from './Loading'
 import { Page404 } from './Page404'
 import { PageHead } from './PageHead'
-import { PageActions } from './PageActions'
+import { PageAside } from './PageAside'
 import { Footer } from './Footer'
-import { PageSocial } from './PageSocial'
 const ReactGiscus = dynamic(() => import('./ReactGiscus'))
 import { NotionPageHeader } from './NotionPageHeader'
 import { GitHubShareButton } from './GitHubShareButton'
-import { HeroHeader } from './HeroHeader'
 
 import styles from './styles.module.css'
 
@@ -208,6 +204,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const isLiteMode = lite === 'true'
 
   const { resolvedTheme } = useTheme()
+  const isDarkMode = resolvedTheme === 'dark'
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {}
@@ -217,14 +214,31 @@ export const NotionPage: React.FC<types.PageProps> = ({
     return mapPageUrl(site, recordMap, searchParams)
   }, [site, recordMap, lite])
 
+  const keys = Object.keys(recordMap?.block || {})
+  const block = recordMap?.block?.[keys[0]]?.value
+
+  // const isRootPage =
+  //   parsePageId(block?.id) === parsePageId(site?.rootNotionPageId)
+  const isBlogPost =
+    block?.type === 'page' && block?.parent_table === 'collection'
+
+  const showTableOfContents = !!isBlogPost
+  const minTableOfContentsItems = 3
+
+  const pageAside = React.useMemo(
+    () => (
+      <PageAside block={block} recordMap={recordMap} isBlogPost={isBlogPost} />
+    ),
+    [block, recordMap, isBlogPost]
+  )
+
+  const footer = React.useMemo(() => <Footer />, [])
+
   if (router.isFallback) {
     return <Loading />
   }
 
-  const keys = Object.keys(recordMap?.block || {})
-  const block = recordMap?.block?.[keys[0]]?.value
-
-  if (error || !site || !keys.length || !block) {
+  if (error || !site || !block) {
     return <Page404 site={site} pageId={pageId} error={error} />
   }
 
@@ -243,17 +257,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
   const canonicalPageUrl =
     !config.isDev && getCanonicalPageUrl(site, recordMap)(pageId)
 
-  // const isRootPage =
-  //   parsePageId(block.id) === parsePageId(site.rootNotionPageId)
-  const isBlogPost =
-    block.type === 'page' && block.parent_table === 'collection'
-  // TODO: bio page
-  const isBioPage =
-    parsePageId(block.id) === parsePageId('BIOPAGE_ID')
-
-  const showTableOfContents = !!isBlogPost
-  const minTableOfContentsItems = 3
-
   const socialImage = mapImageUrl(
     getPageProperty<string>('Social Image', block, recordMap) ||
     (block as PageBlock).format?.page_cover ||
@@ -266,30 +269,13 @@ export const NotionPage: React.FC<types.PageProps> = ({
     config.description
 
   let comments: React.ReactNode = null
-  let pageAside: React.ReactNode = null
-  let pageCover: React.ReactNode = null
 
   // only display comments and page actions on blog post pages
-  if (isBlogPost) {
-    if (config.giscusConfig.valid()) {
-      comments = (
-        <ReactGiscus darkMode={resolvedTheme === 'dark'} />
-      )
-    }
-    const tweet = getPageTweet(block, recordMap)
-    if (tweet) {
-      pageAside = <PageActions tweet={tweet} />
-    }
-  } else {
-    pageAside = <PageSocial />
-  }
-
-  if (isBioPage) {
-    pageCover = (
-      <HeroHeader className='notion-page-cover-wrapper notion-page-cover-hero' />
+  if (isBlogPost && config.giscusConfig.valid()) {
+    comments = (
+      <ReactGiscus darkMode={resolvedTheme === 'dark'} />
     )
   }
-
   return (
     <>
       <PageHead
@@ -302,6 +288,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
       />
 
       {isLiteMode && <BodyClassName className='notion-lite' />}
+      {isDarkMode && <BodyClassName className='dark' />}
 
       <NotionRenderer
         bodyClassName={cs(
@@ -314,7 +301,6 @@ export const NotionPage: React.FC<types.PageProps> = ({
         rootPageId={site.rootNotionPageId}
         rootDomain={site.domain}
         fullPage={!isLiteMode}
-        darkMode={resolvedTheme === 'dark'}
         previewImages={!!recordMap.preview_images}
         showCollectionViewDropdown={false}
         showTableOfContents={showTableOfContents}
@@ -328,9 +314,8 @@ export const NotionPage: React.FC<types.PageProps> = ({
         pageFooter={comments}
         searchNotion={config.isSearchEnabled ? searchNotion : null}
         pageAside={pageAside}
-        footer={<Footer />}
+        footer={footer}
         pageTitle={tagsPage && propertyToFilterName ? title : undefined}
-        pageCover={pageCover}
       />
 
       <GitHubShareButton />

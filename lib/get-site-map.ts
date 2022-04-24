@@ -2,18 +2,31 @@ import pMemoize from 'p-memoize'
 import { getAllPagesInSpace, getPageProperty, getBlockTitle } from 'notion-utils'
 import { uuidToId } from 'notion-utils'
 
-import * as types from './types'
 import { includeNotionIdInUrls, overrideCreatedTime, overrideLastEditedTime } from './config'
 import { notion } from './notion-api'
 import { getCanonicalPageId } from './get-canonical-page-id'
+import * as config from './config'
+import * as types from './types'
 
 const uuid = !!includeNotionIdInUrls
 
-export const getAllPages = pMemoize(getAllPagesImpl, {
+export async function getSiteMap(): Promise<types.SiteMap> {
+  const partialSiteMap = await getAllPages(
+    config.rootNotionPageId,
+    config.rootNotionSpaceId
+  )
+
+  return {
+    site: config.site,
+    ...partialSiteMap
+  } as types.SiteMap
+}
+
+const getAllPages = pMemoize(getAllPagesImpl, {
   cacheKey: (...args) => JSON.stringify(args)
 })
 
-export async function getAllPagesImpl(
+async function getAllPagesImpl(
   rootNotionPageId: string,
   rootNotionSpaceId: string
 ): Promise<Partial<types.SiteMap>> {
@@ -83,7 +96,7 @@ export async function getAllPagesImpl(
         createdTime = block?.created_time ? new Date(block.created_time) : null
 
       const canonicalPageData: types.CanonicalPageData = {
-        pageID: pageId,
+        pageId: pageId,
         lastEditedTime,
         createdTime,
         title,
