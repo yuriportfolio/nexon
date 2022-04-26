@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
 
@@ -60,7 +60,6 @@ code {
   height: 1.2em !important;
   width: 1.2em !important;
 }
-
 
 .dark {
   --fg-color: rgba(255, 255, 255, 0.9);
