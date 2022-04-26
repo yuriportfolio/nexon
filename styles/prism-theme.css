@@ -18,6 +18,7 @@
   background: none !important;
   padding: 0 !important;
 }
+
 .dark .notion code {
   color: rgba(229, 231, 235, 1);
 }
@@ -28,7 +29,7 @@
   padding: 0.2em 0.4em !important;
 }
 
-.light-mode .notion .notion-inline-code {
+.notion .notion-inline-code {
   color: #ff4081;
   background: rgba(127, 122, 107, 0.1) !important;
   padding: 0.2em 0.4em !important;
@@ -95,8 +96,8 @@ code[class*='language-'],
 pre[class*='language-'] {
   color: rgba(31, 41, 55, 1);
 }
-.dark,
-.dark {
+.dark code[class*='language-'],
+.dark pre[class*='language-'] {
   color: rgba(249, 250, 251, 1);
 }
 pre::-webkit-scrollbar {
