@@ -61,7 +61,7 @@ code {
   width: 1.2em !important;
 }
 
-.dark {
+.dark, .dark body {
   --fg-color: rgba(255, 255, 255, 0.9);
   --fg-color-0: var(--fg-color);
   --fg-color-1: var(--fg-color);
