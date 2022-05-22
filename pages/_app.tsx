@@ -26,7 +26,6 @@ import Script from 'next/script'
 import * as Fathom from 'fathom-client'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import { ThemeProvider } from 'next-themes'
 import posthog from 'posthog-js'
 
 import { bootstrap } from 'lib/bootstrap-client'
@@ -74,27 +73,25 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // Google Analytics support.
   return (
-    <ThemeProvider attribute='class' disableTransitionOnChange>
-      <>
-        {
-          googleAnalyticsID && <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
+    <>
+      {
+        googleAnalyticsID && <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsID}`}
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){window.dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', '${googleAnalyticsID}');
         `}
-            </Script>
-          </>
-        }
-        < Component {...pageProps} />
-      </>
-    </ThemeProvider>
+          </Script>
+        </>
+      }
+      < Component {...pageProps} />
+    </>
   )
 }

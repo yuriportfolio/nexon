@@ -6,7 +6,6 @@ import cs from 'classnames'
 import { useRouter } from 'next/router'
 import { useSearchParam } from 'react-use'
 import BodyClassName from 'react-body-classname'
-import { useTheme } from 'next-themes'
 import { PageBlock } from 'notion-types'
 
 import TweetEmbed from 'react-tweet-embed'
@@ -24,6 +23,7 @@ import {
 import { mapPageUrl, getCanonicalPageUrl } from 'lib/map-page-url'
 import { mapImageUrl } from 'lib/map-image-url'
 import { searchNotion } from 'lib/search-notion'
+import { useDarkMode } from 'lib/use-dark-mode'
 import * as types from 'lib/types'
 import * as config from 'lib/config'
 
@@ -203,8 +203,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   // lite mode is for oembed
   const isLiteMode = lite === 'true'
 
-  const { resolvedTheme } = useTheme()
-  const isDarkMode = resolvedTheme === 'dark'
+  const { isDarkMode } = useDarkMode()
 
   const siteMapPageUrl = React.useMemo(() => {
     const params: any = {}
@@ -273,7 +272,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
   // only display comments and page actions on blog post pages
   if (isBlogPost && config.giscusConfig.valid()) {
     comments = (
-      <ReactGiscus darkMode={resolvedTheme === 'dark'} />
+      <ReactGiscus darkMode={isDarkMode} />
     )
   }
   return (
@@ -296,6 +295,7 @@ export const NotionPage: React.FC<types.PageProps> = ({
           pageId === site.rootNotionPageId && 'index-page',
           tagsPage && 'tags-page'
         )}
+        darkMode={isDarkMode}
         components={components}
         recordMap={recordMap}
         rootPageId={site.rootNotionPageId}
