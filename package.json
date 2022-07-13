@@ -6,9 +6,6 @@
   "author": "Feng Kaiyu <loveress01@outlook.com>",
   "repository": "fky2015/nexon",
   "license": "MIT",
-  "engines": {
-    "node": "^14.17"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
