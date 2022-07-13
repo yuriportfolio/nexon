@@ -57,6 +57,18 @@ async function getAllPagesImpl(
       // Get Page Title
       const title = getBlockTitle(block, recordMap)
 
+      // Get public status (draft or not)
+      let publicPage = true;
+      try {
+        publicPage = getPageProperty<boolean>('Public', block, recordMap);
+        // Some page does not contain this property.
+        if (publicPage == null) {
+          publicPage = true;
+        }
+      } catch (e) {
+        console.error(e);
+      }
+
       // Get Last Edited Time
       let lastEditedTime: Date | null = null;
       if (overrideLastEditedTime) {
@@ -100,6 +112,7 @@ async function getAllPagesImpl(
         lastEditedTime,
         createdTime,
         title,
+        publicPage,
       }
 
       console.log(pageId, canonicalPageData)

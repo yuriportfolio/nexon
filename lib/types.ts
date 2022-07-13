@@ -57,6 +57,8 @@ export interface CanonicalPageData {
   lastEditedTime: Date
   createdTime: Date
   title: string
+  // Indicate a draft if set to `false`.
+  publicPage: boolean,
 }
 
 export interface PageUrlOverridesMap {

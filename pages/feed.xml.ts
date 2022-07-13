@@ -43,10 +43,17 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const pageMap = siteMap.canonicalPageMap
   Object.keys(pageMap).map(pageURL => {
     const pageData = pageMap[pageURL] as types.CanonicalPageData
+
+    // Skip the root page.
     if (uuidToId(pageData.pageId) === siteMap.site.rootNotionPageId) {
-      // Skip the root page.
       return
     }
+
+    // Skip the draft page.
+    if (pageData.publicPage == false) {
+      return
+    }
+
     const recordMap = siteMap.pageMap[pageData.pageId] as ExtendedRecordMap
     const url = getCanonicalPageUrl(site, recordMap)(pageData.pageId)
     const socialImageUrl = getSocialImageUrl(pageData.pageId)
