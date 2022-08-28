@@ -4,6 +4,11 @@ import * as React from 'react'
 import * as types from 'lib/types'
 import * as config from 'lib/config'
 import { getSocialImageUrl } from 'lib/get-social-image-url'
+import { useDarkMode } from 'lib/use-dark-mode'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '../tailwind.config.js'
+
+const fullConfig = resolveConfig(tailwindConfig)
 
 export const PageHead: React.FC<
   types.PageProps & {
@@ -19,6 +24,9 @@ export const PageHead: React.FC<
   description = description ?? site?.description
 
   const socialImageUrl = getSocialImageUrl(pageId) || image
+  const { isDarkMode } = useDarkMode()
+
+  let themeColor = isDarkMode ? fullConfig.theme.colors.black : fullConfig.theme.colors.white;
 
   return (
     <Head>
@@ -82,6 +90,8 @@ export const PageHead: React.FC<
 
       <meta property='og:title' content={title} />
       <meta name='twitter:title' content={title} />
+      <meta name='theme-color' content={themeColor} />
+
       <title>{title}</title>
     </Head>
   )

@@ -1,5 +1,5 @@
 .notion-frame {
-  @apply bg-slate-100 dark:bg-black;
+  @apply bg-white dark:bg-black;
 }
 .notion-collection-card {
   @apply bg-white dark:bg-slate-800 shadow-md hover:bg-white hover:shadow-lg focus:shadow-xl transition-all ease-in-out duration-500;
@@ -14,7 +14,7 @@
 }
 
 .notion-header {
-  @apply h-24 sm:h-12 bg-slate-100;
+  @apply h-24 sm:h-12 bg-white;
 }
 
 .notion-header .notion-nav-header {
