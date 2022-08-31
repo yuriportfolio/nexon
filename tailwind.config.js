@@ -7,6 +7,7 @@ delete colors['trueGray'];
 delete colors['coolGray'];
 delete colors['blueGray'];
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./**/*.{tsx,jsx,css}"],
   darkMode: 'class', // or 'media' or 'class'

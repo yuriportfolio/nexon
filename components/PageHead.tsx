@@ -26,7 +26,7 @@ export const PageHead: React.FC<
   const socialImageUrl = getSocialImageUrl(pageId) || image
   const { isDarkMode } = useDarkMode()
 
-  const themeColor = isDarkMode ? fullConfig.theme.colors.black : fullConfig.theme.colors.white;
+  const themeColor = isDarkMode ? fullConfig.theme.colors['black'] : fullConfig.theme.colors['white'];
 
   return (
     <Head>
