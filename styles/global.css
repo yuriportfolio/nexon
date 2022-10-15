@@ -106,7 +106,11 @@ code {
   --notion-gray_background_co: rgba(69, 75, 78, 0.3);
 }
 
-
 .dark .notion-bookmark {
   border-color: var(--bg-color-0);
+}
+
+.searchInput {
+  color: var(--fg-color);
+  caret-color: var(--fg-color);
 }
