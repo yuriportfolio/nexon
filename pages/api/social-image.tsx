@@ -1,9 +1,10 @@
 import * as React from 'react'
-import { ImageResponse } from '@vercel/og'
 import { NextRequest } from 'next/server'
 
-import { NotionPageInfo } from 'lib/types'
-import { apiHost, api } from 'lib/config'
+import { ImageResponse } from '@vercel/og'
+
+import { api, apiHost, rootNotionPageId } from '@/lib/config'
+import { NotionPageInfo } from '@/lib/types'
 
 const interRegularFontP = fetch(
   new URL('../../public/fonts/Inter-Regular.ttf', import.meta.url)
@@ -18,13 +19,8 @@ export const config = {
 }
 
 export default async function OGImage(req: NextRequest) {
-  const [interRegularFont, interBoldFont] = await Promise.all([
-    interRegularFontP,
-    interBoldFontP
-  ])
-
   const { searchParams } = new URL(req.url)
-  const pageId = searchParams.get('id')
+  const pageId = searchParams.get('id') || rootNotionPageId
   if (!pageId) {
     return new Response('Invalid notion page id', { status: 400 })
   }
@@ -32,9 +28,20 @@ export default async function OGImage(req: NextRequest) {
   const pageInfoRes = await fetch(`${apiHost}${api.getNotionPageInfo}`, {
     method: 'POST',
     body: JSON.stringify({ pageId }),
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'content-type': 'application/json'
+    }
   })
+  if (!pageInfoRes.ok) {
+    return new Response(pageInfoRes.statusText, { status: pageInfoRes.status })
+  }
   const pageInfo: NotionPageInfo = await pageInfoRes.json()
+  console.log(pageInfo)
+
+  const [interRegularFont, interBoldFont] = await Promise.all([
+    interRegularFontP,
+    interBoldFontP
+  ])
 
   return new ImageResponse(
     (
@@ -81,7 +88,7 @@ export default async function OGImage(req: NextRequest) {
           style={{
             position: 'relative',
             width: 900,
-            height: 450,
+            height: 465,
             display: 'flex',
             flexDirection: 'column',
             border: '16px solid rgba(0,0,0,0.3)',
@@ -128,7 +135,7 @@ export default async function OGImage(req: NextRequest) {
           <div
             style={{
               position: 'absolute',
-              top: 32,
+              top: 47,
               left: 104,
               height: 128,
               width: 128,
@@ -152,7 +159,7 @@ export default async function OGImage(req: NextRequest) {
     ),
     {
       width: 1200,
-      height: 600,
+      height: 630,
       fonts: [
         {
           name: 'Inter',

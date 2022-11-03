@@ -1,10 +1,10 @@
-import Head from 'next/head'
 import * as React from 'react'
+import Head from 'next/head'
 
-import * as types from 'lib/types'
-import * as config from 'lib/config'
-import { getSocialImageUrl } from 'lib/get-social-image-url'
-import { useDarkMode } from 'lib/use-dark-mode'
+import * as config from '@/lib/config'
+import * as types from '@/lib/types'
+import { getSocialImageUrl } from '@/lib/get-social-image-url'
+import { useDarkMode } from '@/lib/use-dark-mode'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../tailwind.config.js'
 

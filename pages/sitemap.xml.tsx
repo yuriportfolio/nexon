@@ -1,7 +1,7 @@
 import type { GetServerSideProps } from 'next'
-import type { SiteMap } from 'lib/types'
-import { host } from 'lib/config'
-import { getSiteMap } from 'lib/get-site-map'
+import { host } from '@/lib/config'
+import { getSiteMap } from '@/lib/get-site-map'
+import type { SiteMap } from '@/lib/types'
 import { uuidToId } from 'notion-utils'
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {

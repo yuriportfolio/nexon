@@ -4,16 +4,16 @@
  * This file pulls from the root "site.config.ts" as well as environment variables
  * for optional depenencies.
  */
-
 import { parsePageId } from 'notion-utils'
 import { GiscusProps } from '@giscus/react'
 import type posthog from 'posthog-js'
+
 import { getEnv, getSiteConfig } from './get-config-value'
 import { NavigationLink } from './site-config'
 import {
+  NavigationStyle,
   PageUrlOverridesInverseMap,
   PageUrlOverridesMap,
-  NavigationStyle,
   Site
 } from './types'
 
