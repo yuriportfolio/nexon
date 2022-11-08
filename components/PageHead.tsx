@@ -1,10 +1,10 @@
-import Head from 'next/head'
 import * as React from 'react'
+import Head from 'next/head'
 
-import * as types from 'lib/types'
-import * as config from 'lib/config'
-import { getSocialImageUrl } from 'lib/get-social-image-url'
-import { useDarkMode } from 'lib/use-dark-mode'
+import * as config from '@/lib/config'
+import * as types from '@/lib/types'
+import { getSocialImageUrl } from '@/lib/get-social-image-url'
+import { useDarkMode } from '@/lib/use-dark-mode'
 import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../tailwind.config.js'
 
@@ -37,10 +37,6 @@ export const PageHead: React.FC<
         content='width=device-width, initial-scale=1, shrink-to-fit=no'
       />
 
-      <link
-        href='https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap'
-        rel='stylesheet'
-      />
       <meta name='robots' content='index,follow' />
       <meta property='og:type' content='website' />
 

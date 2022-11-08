@@ -1,5 +1,6 @@
 import * as React from 'react'
-import Document, { Html, Head, Main, NextScript } from 'next/document'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+
 import { IconContext } from '@react-icons/all-files'
 
 export default class MyDocument extends Document {
@@ -27,6 +28,10 @@ export default class MyDocument extends Document {
               href='/favicon-96x96.png'
             />
             <link rel='manifest' href='/manifest.json' />
+            <link
+              href='https://fonts.googleapis.com/css2?family=Fira+Code&family=Noto+Sans+SC:wght@400;700&family=Roboto+Slab:wght@400;700&display=swap'
+              rel='stylesheet'
+            />
           </Head>
 
           <body className="white dark:bg-black dark:text-white">

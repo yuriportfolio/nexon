@@ -1,13 +1,21 @@
 import { GetServerSideProps } from 'next'
 import RSS from 'rss';
 
-import { site, host, name, description, author } from '../lib/config';
-import { getSiteMap } from '../lib/get-site-map'
-import * as types from 'lib/types'
-import { uuidToId } from 'notion-utils';
-import { getCanonicalPageUrl } from 'lib/map-page-url'
-import { getSocialImageUrl } from 'lib/get-social-image-url'
-import { ExtendedRecordMap } from 'lib/types';
+import { site, host, name, description, author } from '@/lib/config';
+import { getSiteMap } from '@/lib/get-site-map'
+import * as types from '@/lib/types'
+import * as config from '@/lib/config'
+import {
+  getBlockParentPage, uuidToId,
+  getPageProperty,
+  idToUuid
+} from 'notion-utils';
+import { getCanonicalPageUrl } from '@/lib/map-page-url'
+import { getSocialImageUrl } from '@/lib/get-social-image-url'
+import { ExtendedRecordMap } from '@/lib/types';
+
+const ttlMinutes = 24 * 60 // 24 hours
+const ttlSeconds = ttlMinutes * 60
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
@@ -26,9 +34,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // cache for up to 8 hours
   res.setHeader(
     'Cache-Control',
-    'public, max-age=28800, stale-while-revalidate=28800'
+    `public, max-age=${ttlSeconds}, stale-while-revalidate=${ttlSeconds}`
   )
-  res.setHeader('Content-Type', 'text/xml')
+  res.setHeader('Content-Type', 'text/xml; charset=utf-8')
 
   const feed = new RSS({
     title: name,
@@ -37,6 +45,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     description,
     copyright: `${new Date().getFullYear()} ${author}`,
     webMaster: author,
+    ttl: ttlMinutes,
   })
 
   // For each siteMap, add all the posts to the feed.
@@ -55,14 +64,30 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     }
 
     const recordMap = siteMap.pageMap[pageData.pageId] as ExtendedRecordMap
+    const keys = Object.keys(recordMap?.block || {})
+    const block = recordMap?.block?.[keys[0]]?.value
+    if (!block) return
+
+    const parentPage = getBlockParentPage(block, recordMap)
+    const isBlogPost =
+      block.type === 'page' &&
+      block.parent_table === 'collection' &&
+      parentPage?.id === idToUuid(config.rootNotionPageId)
+    if (!isBlogPost) {
+      return
+    }
+
     const url = getCanonicalPageUrl(site, recordMap)(pageData.pageId)
     const socialImageUrl = getSocialImageUrl(pageData.pageId)
+    const description =
+      getPageProperty<string>('Description', block, recordMap) ||
+      config.description
     feed.item({
       title: pageData.title,
-      // description: pageData.description,
       url,
       guid: pageData.pageId,
       date: pageData.createdTime,
+      description,
       author,
       enclosure: socialImageUrl
         ? {
