@@ -2,6 +2,7 @@ import * as React from 'react'
 
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
+import Image from 'next/image'
 
 export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
   const title = 'Error'
@@ -16,7 +17,7 @@ export const ErrorPage: React.FC<{ statusCode: number }> = ({ statusCode }) => {
 
           {statusCode && <p>Error code: {statusCode}</p>}
 
-          <img src='/error.png' alt='Error' className={styles.errorImage} />
+          <Image src='/error.png' alt='Error' className={styles.errorImage} />
         </main>
       </div>
     </>

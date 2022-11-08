@@ -5,6 +5,7 @@ import { ImageResponse } from '@vercel/og'
 
 import { api, apiHost, rootNotionPageId } from '@/lib/config'
 import { NotionPageInfo } from '@/lib/types'
+import Image from 'next/image'
 
 const interRegularFontP = fetch(
   new URL('../../public/fonts/Inter-Regular.ttf', import.meta.url)
@@ -60,7 +61,7 @@ export default async function OGImage(req: NextRequest) {
         }}
       >
         {pageInfo.image && (
-          <img
+          <Image
             src={pageInfo.image}
             style={{
               position: 'absolute',
@@ -145,7 +146,7 @@ export default async function OGImage(req: NextRequest) {
               zIndex: '5'
             }}
           >
-            <img
+            <Image
               src={pageInfo.authorImage}
               style={{
                 width: '100%',
