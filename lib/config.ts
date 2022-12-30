@@ -4,8 +4,8 @@
  * This file pulls from the root "site.config.ts" as well as environment variables
  * for optional depenencies.
  */
-import { parsePageId } from 'notion-utils'
 import { GiscusProps } from '@giscus/react'
+import { parsePageId } from 'notion-utils'
 import type posthog from 'posthog-js'
 
 import { getEnv, getSiteConfig } from './get-config-value'
@@ -27,10 +27,10 @@ const rootNotionTestPageID = parsePageId(
 )
 
 // If it's in dev and rootNotionPageTestID is set, use that as the root page.
-export const rootNotionPageId: string = (isDev && rootNotionTestPageID) ? rootNotionTestPageID : parsePageId(
-  getSiteConfig('rootNotionPageId'),
-  { uuid: false }
-)
+export const rootNotionPageId: string =
+  isDev && rootNotionTestPageID
+    ? rootNotionTestPageID
+    : parsePageId(getSiteConfig('rootNotionPageId'), { uuid: false })
 
 if (!rootNotionPageId) {
   throw new Error('Config error invalid "rootNotionPageId"')
@@ -159,8 +159,8 @@ export const site: Site = {
 export const fathomId = isDev ? null : process.env.NEXT_PUBLIC_FATHOM_ID
 export const fathomConfig = fathomId
   ? {
-    excludedDomains: ['localhost', 'localhost:3000']
-  }
+      excludedDomains: ['localhost', 'localhost:3000']
+    }
   : undefined
 
 export const googleAnalyticsID = isDev ? null : process.env.NEXT_PUBLIC_GA_ID
@@ -219,12 +219,14 @@ function invertPageUrlOverrides(
 
 // Metadata overrides
 
-// Override CreatedTime 
+// Override CreatedTime
 export const overrideCreatedTime = getSiteConfig('OverrideCreatedTime', null)
 
 // Override LastEditedTime
-export const overrideLastEditedTime = getSiteConfig('OverrideLastEditedTime', null)
-
+export const overrideLastEditedTime = getSiteConfig(
+  'OverrideLastEditedTime',
+  null
+)
 
 class GiscusConfig {
   props: GiscusProps
@@ -241,5 +243,6 @@ class GiscusConfig {
   }
 }
 
-export const giscusConfig = new GiscusConfig(getSiteConfig('giscusGithubConfig'))
-
+export const giscusConfig = new GiscusConfig(
+  getSiteConfig('giscusGithubConfig')
+)

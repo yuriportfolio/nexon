@@ -1,10 +1,10 @@
 import * as React from 'react'
+import Image from 'next/image'
 
 import * as types from '@/lib/types'
 
 import { PageHead } from './PageHead'
 import styles from './styles.module.css'
-import Image from 'next/image'
 
 export const Page404: React.FC<types.PageProps> = ({ site, pageId, error }) => {
   const title = site?.name || 'Notion Page Not Found'

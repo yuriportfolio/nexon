@@ -45,7 +45,7 @@ export default siteConfig({
     mapping: 'title',
     reactionsEnabled: '1',
     theme: 'light',
-    term: null,
+    term: null
   },
   // whether or not to enable support for LQIP preview images (optional)
   isPreviewImageSupportEnabled: true,
@@ -65,10 +65,10 @@ export default siteConfig({
   // }
   pageUrlOverrides: null,
 
-  // Optional: Normally, the page contain it's metadata 
+  // Optional: Normally, the page contain it's metadata
   // like `CreatedTime`, `LastEditedTime`.
   // These metadata cannot be changed by the user.
-  // If you want to override this with a page property (so that 
+  // If you want to override this with a page property (so that
   // you can custom it's value), specify it's name here.
   //
   // This should align with the property name in Notion.
