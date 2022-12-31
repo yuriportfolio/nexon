@@ -95,6 +95,10 @@
   color: #f26522;
 }
 
+.mastodon:hover {
+  color: #5a4be1;
+}
+
 .zhihu:hover {
   color: #0066ff;
 }

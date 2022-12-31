@@ -1,4 +1,6 @@
 import * as React from 'react'
+import * as types from 'lib/types'
+
 import Image from 'next/image'
 
 import * as types from '@/lib/types'

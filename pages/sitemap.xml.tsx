@@ -1,5 +1,4 @@
 import type { GetServerSideProps } from 'next'
-
 import { uuidToId } from 'notion-utils'
 
 import { host } from '@/lib/config'
@@ -45,18 +44,18 @@ const createSitemap = (siteMap: SiteMap) =>
     </url>
 
     ${Object.entries(siteMap.canonicalPageMap)
-      .filter(
-        ([, data]) => uuidToId(data.pageId) !== siteMap.site.rootNotionPageId
-      )
-      .map(([canonicalPagePath, canonicalPageData]) =>
-        `
+    .filter(
+      ([, data]) => uuidToId(data.pageId) !== siteMap.site.rootNotionPageId
+    )
+    .map(([canonicalPagePath, canonicalPageData]) =>
+      `
           <url>
             <loc>${host}/${canonicalPagePath}</loc>
             <lastmod>${canonicalPageData.lastEditedTime.toISOString()}</lastmod>
           </url>
         `.trim()
-      )
-      .join('')}
+    )
+    .join('')}
   </urlset>
 `
 
