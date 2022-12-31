@@ -87,14 +87,18 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       title: pageData.title,
       url,
       guid: pageData.pageId,
-      date: pageData.lastEditedTime ? pageData.lastEditedTime : pageData.createdTime ? pageData.createdTime : undefined,
+      date: pageData.lastEditedTime
+        ? pageData.lastEditedTime
+        : pageData.createdTime
+        ? pageData.createdTime
+        : undefined,
       description,
       author,
       enclosure: socialImageUrl
         ? {
-          url: socialImageUrl,
-          type: 'image/jpeg'
-        }
+            url: socialImageUrl,
+            type: 'image/jpeg'
+          }
         : undefined
     })
   })
