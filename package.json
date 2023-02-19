@@ -28,7 +28,6 @@
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
-    "test": "run-p test:*",
     "test:lint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check"
   },
@@ -48,9 +47,7 @@
     "lodash.omit": "^4.5.0",
     "lqip-modern": "^1.2.0",
     "@notionhq/client": "^2.2.2",
-    "@vercel/og": "^0.0.21",
     "axios": "^1.2.1",
-    "got": "^12.5.3",
     "mermaid": "^9.3.0",
     "metascraper": "^5.32.3",
     "metascraper-description": "^5.32.3",
