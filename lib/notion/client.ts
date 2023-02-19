@@ -86,7 +86,7 @@ export async function getAllPosts(): Promise<Post[]> {
       ],
       page_size: 100,
     }
-
+/* eslint-disable no-constant-condition */
     while (true) {
       const res: responses.QueryDatabaseResponse = await client.databases.query(params)
 
@@ -376,7 +376,7 @@ export async function getAllBlocksByBlockId(blockId: string): Promise<Block[]> {
   const params = {
     block_id: blockId,
   }
-
+/* eslint-disable no-constant-condition */
   while (true) {
     const res: responses.RetrieveBlockChildrenResponse = await client.blocks.children.list(params)
 
@@ -459,50 +459,50 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
 
       block.Heading1 = heading1
       break
-    case 'heading_2':
+    case 'heading_2':{
       const heading2: Heading2 = {
         RichTexts: blockObject.heading_2.rich_text.map(_buildRichText),
         Color: blockObject.heading_2.color,
         IsToggleable: blockObject.heading_2.is_toggleable,
       }
-
-      block.Heading2 = heading2
+    
+      block.Heading2 = heading2}
       break
-    case 'heading_3':
+    case 'heading_3':{
       const heading3: Heading3 = {
         RichTexts: blockObject.heading_3.rich_text.map(_buildRichText),
         Color: blockObject.heading_3.color,
         IsToggleable: blockObject.heading_3.is_toggleable,
       }
 
-      block.Heading3 = heading3
+      block.Heading3 = heading3}
       break
-    case 'bulleted_list_item':
+    case 'bulleted_list_item':{
       const bulletedListItem: BulletedListItem = {
         RichTexts: blockObject.bulleted_list_item.rich_text.map(_buildRichText),
         Color: blockObject.bulleted_list_item.color,
       }
 
-      block.BulletedListItem = bulletedListItem
+      block.BulletedListItem = bulletedListItem}
       break
-    case 'numbered_list_item':
+    case 'numbered_list_item':{
       const numberedListItem: NumberedListItem = {
         RichTexts: blockObject.numbered_list_item.rich_text.map(_buildRichText),
         Color: blockObject.numbered_list_item.color,
       }
 
-      block.NumberedListItem = numberedListItem
+      block.NumberedListItem = numberedListItem}
       break
-    case 'to_do':
+    case 'to_do':{
       const toDo: ToDo = {
         RichTexts: blockObject.to_do.rich_text.map(_buildRichText),
         Checked: blockObject.to_do.checked,
         Color: blockObject.to_do.color,
       }
 
-      block.ToDo = toDo
+      block.ToDo = toDo}
       break
-    case 'video':
+    case 'video':{
       const video: Video = {
         Type: blockObject.video.type,
       }
@@ -511,9 +511,9 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         video.External = { Url: blockObject.video.external.url }
       }
 
-      block.Video = video
+      block.Video = video}
       break
-    case 'image':
+    case 'image':{
       const image: Image = {
         Caption: blockObject.image.caption.map(_buildRichText),
         Type: blockObject.image.type,
@@ -525,7 +525,7 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         image.File = { Url: blockObject.image.file.url, ExpiryTime: blockObject.image.file.expiry_time }
       }
 
-      block.Image = image
+      block.Image = image}
       break
     case 'code':
       const code: Code = {
