@@ -152,4 +152,4 @@ export const FooterImpl: React.FC = () => {
   )
 }
 
-export const Footer = React.memo(FooterImpl)
+export default Footer
