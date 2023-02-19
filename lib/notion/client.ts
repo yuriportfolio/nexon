@@ -527,42 +527,42 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
 
       block.Image = image}
       break
-    case 'code':
+    case 'code':{
       const code: Code = {
         Caption: blockObject[blockObject.type].caption.map(_buildRichText),
         RichTexts: blockObject[blockObject.type].rich_text.map(_buildRichText),
         Language: blockObject.code.language,
       }
 
-      block.Code = code
+      block.Code = code}
       break
-    case 'quote':
+    case 'quote':{
       const quote: Quote = {
         RichTexts: blockObject[blockObject.type].rich_text.map(_buildRichText),
         Color: blockObject[blockObject.type].color,
       }
 
-      block.Quote = quote
+      block.Quote = quote}
       break
-    case 'equation':
+    case 'equation':{
       const equation: Equation = {
         Expression: blockObject[blockObject.type].expression,
       }
 
-      block.Equation = equation
+      block.Equation = equation}
       break
     case 'callout':
-      const callout: Callout = {
-        RichTexts: blockObject[blockObject.type].rich_text.map(_buildRichText),
-        Icon: {
-          Emoji: blockObject[blockObject.type].icon.emoji,
-        },
-        Color: blockObject[blockObject.type].color,
-      }
+     { const callout: Callout = {
+      RichTexts: blockObject[blockObject.type].rich_text.map(_buildRichText),
+      Icon: {
+        Emoji: blockObject[blockObject.type].icon.emoji,
+      },
+      Color: blockObject[blockObject.type].color,
+    }
 
-      block.Callout = callout
+    block.Callout = callout}
       break
-    case 'synced_block':
+    case 'synced_block':{
       let syncedFrom: SyncedFrom = null
       if (blockObject[blockObject.type].synced_from && blockObject[blockObject.type].synced_from.block_id) {
         syncedFrom = {
@@ -574,61 +574,61 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
         SyncedFrom: syncedFrom,
       }
 
-      block.SyncedBlock = syncedBlock
+      block.SyncedBlock = syncedBlock}
       break
-    case 'toggle':
+    case 'toggle':{
       const toggle: Toggle = {
         RichTexts: blockObject[blockObject.type].rich_text.map(_buildRichText),
         Color: blockObject[blockObject.type].color,
         Children: [],
       }
 
-      block.Toggle = toggle
+      block.Toggle = toggle}
       break
     case 'embed':
-      const embed: Embed = {
-        Url: blockObject.embed.url,
-      }
+{      const embed: Embed = {
+  Url: blockObject.embed.url,
+}
 
-      block.Embed = embed
+block.Embed = embed}
       break
-    case 'bookmark':
+    case 'bookmark':{
       const bookmark: Bookmark = {
         Url: blockObject.bookmark.url,
       }
 
-      block.Bookmark = bookmark
+      block.Bookmark = bookmark}
       break
-    case 'link_preview':
+    case 'link_preview':{
       const linkPreview: LinkPreview = {
         Url: blockObject.link_preview.url,
       }
 
-      block.LinkPreview = linkPreview
+      block.LinkPreview = linkPreview}
       break
     case 'table':
-      const table: Table = {
-        TableWidth: blockObject.table.table_width,
-        HasColumnHeader: blockObject.table.has_column_header,
-        HasRowHeader: blockObject.table.has_row_header,
-        Rows: [],
-      }
+{      const table: Table = {
+  TableWidth: blockObject.table.table_width,
+  HasColumnHeader: blockObject.table.has_column_header,
+  HasRowHeader: blockObject.table.has_row_header,
+  Rows: [],
+}
 
-      block.Table = table
+block.Table = table}
       break
-    case 'column_list':
+    case 'column_list':{
       const columnList: ColumnList = {
         Columns: [],
       }
 
-      block.ColumnList = columnList
+      block.ColumnList = columnList}
       break
-    case 'table_of_contents':
+    case 'table_of_contents':{
       const tableOfContents: TableOfContents = {
         Color: blockObject.table_of_contents.color,
       }
 
-      block.TableOfContents = tableOfContents
+      block.TableOfContents = tableOfContents}
       break
   }
 
