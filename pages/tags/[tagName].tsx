@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 import { domain, isDev, rootNotionPageId } from 'lib/config'
 import { resolveNotionPage } from 'lib/resolve-notion-page'
@@ -30,6 +29,7 @@ import {
 const tagsPropertyNameLowerCase = 'tags'
 
 export const getStaticProps = async (context) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const rawTagName = (context.params.tagName as string) || ''
 
   try {
