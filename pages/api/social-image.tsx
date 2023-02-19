@@ -73,7 +73,6 @@ export default async function OGImage(req: NextRequest) {
               // blurred edges. For now, we'll go without a blur filter on the
               // background, but Satori is still very new, so hopefully we can re-add
               // the blur soon.
-
               // backgroundImage: pageInfo.image
               //   ? `url(${pageInfo.image})`
               //   : undefined,
@@ -81,8 +80,7 @@ export default async function OGImage(req: NextRequest) {
               // TODO: pageInfo.imageObjectPosition
               // filter: 'blur(8px)'
               // transform: 'scale(1.05)'
-            }}
-          />
+            }} alt={''}          />
         )}
 
         <div
@@ -152,8 +150,7 @@ export default async function OGImage(req: NextRequest) {
                 width: '100%',
                 height: '100%'
                 // transform: 'scale(1.04)'
-              }}
-            />
+              }} alt={''}            />
           </div>
         )}
       </div>
