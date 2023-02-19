@@ -17,6 +17,11 @@
     "baseUrl": ".",
     "typeRoots": ["./node_modules/@types"],
     "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
       "@/components/*": ["components/*"],
       "@/lib/*": ["lib/*"],
@@ -24,5 +29,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "site.config.ts"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "site.config.ts",".next/types/**/*.ts"]
 }
