@@ -18,121 +18,78 @@ import styles from './styles.module.css'
 
 const year = new Date().getFullYear()
 
-const Footer = () => {
-  const [isDarkMode, setIsDarkMode] = React.useState(false)
-
-  const onToggleDarkMode = (event) => {
-    event.preventDefault()
-    setIsDarkMode(!isDarkMode)
-  }
-
-  return (
-    <footer className={styles.footer}>
-      <div>
-        <span>Powered by </span>
-        <Link href="https://github.com/otoyo/easy-notion-blog">
-          easy-notion-blog
-        </Link>
+const Footer = () => (
+  <footer className={styles.footer}>
+    <div>
+      <span>Powered by </span>
+      <Link href="https://github.com/otoyo/easy-notion-blog">
+        easy-notion-blog
+      </Link>
+    </div>
+    <div className={styles.footer}>
+      <div className={styles.settings}>
+        <a
+          className={styles.toggleDarkMode}
+          href="#"
+          role="button"
+          onClick={onToggleDarkMode}
+          title="Toggle dark mode"
+        >
+          {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+        </a>
       </div>
-      <footer className={styles.footer}>
-        <div className={styles.settings}>
+
+      <div className={styles.social}>
+        <a
+          className={styles.rss}
+          href="/feed.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaRss />
+        </a>
+        {config.twitter && (
           <a
-            className={styles.toggleDarkMode}
-            href='#'
-            role='button'
-            onClick={onToggleDarkMode}
-            title='Toggle dark mode'
+            className={styles.twitter}
+            href={`https://twitter.com/${config.twitter}`}
+            title={`Twitter @${config.twitter}`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+            <FaTwitter />
           </a>
-        </div>
+        )}
 
-        <div className={styles.social}>
+        {config.mastodon && (
           <a
-            className={styles.rss}
-            href='/feed.xml'
-            target='_blank'
-            rel='noopener noreferrer'
+            className={styles.mastodon}
+            href={config.mastodon}
+            title={`Mastodon ${config.getMastodonHandle()}`}
+            rel="me"
           >
-            <FaRss />
+            <FaMastodon />
           </a>
-          {config.twitter && (
-            <a
-              className={styles.twitter}
-              href={`https://twitter.com/${config.twitter}`}
-              title={`Twitter @${config.twitter}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <FaTwitter />
-            </a>
-          )}
+        )}
 
-          {config.mastodon && (
-            <a
-              className={styles.mastodon}
-              href={config.mastodon}
-              title={`Mastodon ${config.getMastodonHandle()}`}
-              rel='me'
-            >
-              <FaMastodon />
-            </a>
-          )}
+        {config.zhihu && (
+          <a
+            className={styles.zhihu}
+            href={`https://zhihu.com/people/${config.zhihu}`}
+            title={`Zhihu @${config.zhihu}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <FaZhihu />
+          </a>
+        )}
 
-          {config.zhihu && (
-            <a
-              className={styles.zhihu}
-              href={`https://zhihu.com/people/${config.zhihu}`}
-              title={`Zhihu @${config.zhihu}`}
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              <FaZhihu />
-            </a>
-          )}
-
-{config.linkedin && (
-  <a
-    className={styles.linkedin}
-    href={`https://www.linkedin.com/in/${config.linkedin}`}
-    title={`LinkedIn ${config.author}`}
-    target='_blank'
-    rel='noopener noreferrer'
-  >
-    <FaLinkedin />
-  </a>
-)}
-
-{config.newsletter && (
-  <a
-    className={styles.newsletter}
-    href={`${config.newsletter}`}
-    title={`Newsletter ${config.author}`}
-    target='_blank'
-    rel='noopener noreferrer'
-  >
-    <FaEnvelopeOpenText />
-  </a>
-)}
-
-{config.youtube && (
-  <a
-    className={styles.youtube}
-    href={`https://www.youtube.com/${config.youtube}`}
-    title={`YouTube ${config.author}`}
-    target='_blank'
-    rel='noopener noreferrer'
-  >
-    <FaYoutube />
-  </a>
-)}
-{config.github && (
+        {config.github && (
           <a
             className={styles.github}
             href={`https://github.com/${config.github}`}
             title={`GitHub @${config.github}`}
-            target='_blank'
-            rel='noopener noreferrer'
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <FaGithub />
           </a>
@@ -142,8 +99,8 @@ const Footer = () => {
           <a className={styles.about}>About</a>
         </Link>
       </div>
-    </footer>
+    </div>
   </footer>
-)
+);
 
-export default Footer
+export default Footer;
