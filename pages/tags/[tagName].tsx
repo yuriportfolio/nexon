@@ -200,6 +200,4 @@ export async function getStaticPaths() {
 }
 
 export default function NotionTagsPage(props) {
-  return <NotionPage {...props} />,
-  <BlogPageTag/>
-}
+  return <NotionPage {...props} />}
