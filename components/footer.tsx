@@ -18,73 +18,77 @@ import styles from './styles.module.css'
 
 const year = new Date().getFullYear()
 
-const Footer = () => (
-  <footer className={styles.footer}>
-    <div>
-      <span>Powered by </span>
-      <Link href="https://github.com/otoyo/easy-notion-blog">
-        easy-notion-blog
-      </Link>
-    </div>
-    <div className={styles.footer}>
-      <div className={styles.settings}>
-        <a
-          className={styles.toggleDarkMode}
-          href="#"
-          role="button"
-          onClick={onToggleDarkMode}
-          title="Toggle dark mode"
-        >
-          {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
-        </a>
+const Footer = () => {
+  const { isDarkMode, onToggleDarkMode } = useDarkMode()
+
+  return (
+    <footer className={styles.footer}>
+      <div>
+        <span>Powered by </span>
+        <Link href="https://github.com/otoyo/easy-notion-blog">
+          easy-notion-blog
+        </Link>
       </div>
-
-      <div className={styles.social}>
-        <a
-          className={styles.rss}
-          href="/feed.xml"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaRss />
-        </a>
-        {config.twitter && (
+      <div className={styles.footer}>
+        <div className={styles.settings}>
           <a
-            className={styles.twitter}
-            href={`https://twitter.com/${config.twitter}`}
-            title={`Twitter @${config.twitter}`}
+            className={styles.toggleDarkMode}
+            href="#"
+            role="button"
+            onClick={onToggleDarkMode}
+            title="Toggle dark mode"
+          >
+            {isDarkMode ? <IoMoonSharp /> : <IoSunnyOutline />}
+          </a>
+        </div>
+
+        <div className={styles.social}>
+          <a
+            className={styles.rss}
+            href="/feed.xml"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <FaTwitter />
+            <FaRss />
           </a>
-        )}
+          {config.twitter && (
+            <a
+              className={styles.twitter}
+              href={`https://twitter.com/${config.twitter}`}
+              title={`Twitter @${config.twitter}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaTwitter />
+            </a>
+          )}
 
-        {config.mastodon && (
-          <a
-            className={styles.mastodon}
-            href={config.mastodon}
-            title={`Mastodon ${config.getMastodonHandle()}`}
-            rel="me"
-          >
-            <FaMastodon />
-          </a>
-        )}
+          {config.mastodon && (
+            <a
+              className={styles.mastodon}
+              href={config.mastodon}
+              title={`Mastodon ${config.getMastodonHandle()}`}
+              rel="me"
+            >
+              <FaMastodon />
+            </a>
+          )}
 
-        {config.zhihu && (
-          <a
-            className={styles.zhihu}
-            href={`https://zhihu.com/people/${config.zhihu}`}
-            title={`Zhihu @${config.zhihu}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <FaZhihu />
-          </a>
-        )}
+          {config.zhihu && (
+            <a
+              className={styles.zhihu}
+              href={`https://zhihu.com/people/${config.zhihu}`}
+              title={`Zhihu @${config.zhihu}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaZhihu />
+            </a>
+          )}
 
-        {config.github && (
-          <a
+          {config.github && (
+            <a
+
             className={styles.github}
             href={`https://github.com/${config.github}`}
             title={`GitHub @${config.github}`}
