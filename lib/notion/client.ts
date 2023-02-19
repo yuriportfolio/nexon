@@ -442,22 +442,22 @@ function _buildBlock(blockObject: responses.BlockObject): Block {
   }
 
   switch (blockObject.type) {
-    case 'paragraph':
+    case 'paragraph':{
       const paragraph: Paragraph = {
         RichTexts: blockObject.paragraph.rich_text.map(_buildRichText),
         Color: blockObject.paragraph.color,
       }
 
-      block.Paragraph = paragraph
+      block.Paragraph = paragraph}
       break
-    case 'heading_1':
+    case 'heading_1':{
       const heading1: Heading1 = {
         RichTexts: blockObject.heading_1.rich_text.map(_buildRichText),
         Color: blockObject.heading_1.color,
         IsToggleable: blockObject.heading_1.is_toggleable,
       }
 
-      block.Heading1 = heading1
+      block.Heading1 = heading1}
       break
     case 'heading_2':{
       const heading2: Heading2 = {
