@@ -29,11 +29,11 @@ import {
 const tagsPropertyNameLowerCase = 'tags'
 
 export const getStaticProps = async (context) => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const rawTagName = (context.params.tagName as string) || ''
 
   try {
     const props = await resolveNotionPage(domain, rootNotionPageId)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let propertyToFilterName: string = null
 
     if ((props as any).recordMap) {
