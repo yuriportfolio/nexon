@@ -71,7 +71,7 @@ const BlogPageTag = async () => {
   )
 }
 
-export default BlogPage
+export BlogPageTag
 
 const tagsPropertyNameLowerCase = 'tags'
 
