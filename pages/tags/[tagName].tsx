@@ -16,32 +16,24 @@ import {
   PostExcerpt,
   PostTags,
   PostTitle,
-  ReadMoreLink
+  ReadMoreLink,
 } from '../../components/blog-parts'
 import styles from '../../styles/blog.module.css'
 import {
   getPosts,
   getFirstPost,
   getRankedPosts,
-  getAllTags
+  getAllTags,
 } from '../../lib/notion/client'
-import { PageProps } from 'next/types'
-
-interface TagsPageProps extends typeof PageProps {
-firstPost: any
-ankedPosts: any
-}
 
 const tagsPropertyNameLowerCase = 'tags'
 
-   
-export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, preview }) => {
+export const getStaticProps = async (context) => {
   const rawTagName = (context.params.tagName as string) || ''
 
   try {
     const props = await resolveNotionPage(domain, rootNotionPageId)
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
     let propertyToFilterName: string = null
 
     if ((props as any).recordMap) {
@@ -92,81 +84,84 @@ export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, pr
                   if (!value) {
                     return false
                   }
-                  const values = value.split(',');
+
+                  const values = value.split(',')
                   if (
                     !values.find(
                       (value: string) => normalizeTitle(value) === filteredValue
                     )
                   ) {
-                    return false;
+                    return false
                   }
 
-                  return true;
-                });
+                  return true
+                })
               }
             }
           }
         }
       }
-
-      const [posts, firstPost, rankedPosts, tags] = await Promise.all([
-        getPosts(NUMBER_OF_POSTS_PER_PAGE),
-        getFirstPost(),
-        getRankedPosts(),
-        getAllTags(),
-      ]);
-
-      return {
-        props: {
-          ...props,
-          tagsPage: false,
-          posts,
-          firstPost,
-          rankedPosts,
-          tags,
-          propertyToFilterName
-        },
-        revalidate: 43200,
-      }; 
-    } catch (err) {
-      console.error('page error', domain, rawTagName, err);
-      throw err;
     }
-  };
-      // we don't want to publish the error version of this page, so
-      // let next.js know explicitly that incremental SSG failed
-    
+
+    const [posts, firstPost, rankedPosts, tags] = await Promise.all([
+      getPosts(NUMBER_OF_POSTS_PER_PAGE),
+      getFirstPost(),
+      getRankedPosts(),
+      getAllTags(),
+    ])
+
+    return {
+      props: {
+        ...props,
+        tagsPage: true,
+        posts,
+        firstPost,
+        rankedPosts,
+        tags,
+        propertyToFilterName
+      },
+      revalidate: 43200
+    }
+  } catch (err) {
+    console.error('page error', domain, rawTagName, err)
+
+    // we don't want to publish the error version of this page, so
+    // let next.js know explicitly that incremental SSG failed
+    throw err
+  }
+}
+
 export async function getStaticPaths() {
   if (!isDev) {
-    const props = await resolveNotionPage(domain, rootNotionPageId);
+    const props = await resolveNotionPage(domain, rootNotionPageId)
 
     if ((props as any).recordMap) {
-      const recordMap = (props as any).recordMap as ExtendedRecordMap;
-      const collection = Object.values(recordMap.collection)[0]?.value;
+      const recordMap = (props as any).recordMap as ExtendedRecordMap
+      const collection = Object.values(recordMap.collection)[0]?.value
 
       if (collection) {
         const propertyToFilterSchema = Object.entries(collection.schema).find(
           (property) =>
             property[1]?.name?.toLowerCase() === tagsPropertyNameLowerCase
-        )?.[1];
+        )?.[1]
 
         const paths = propertyToFilterSchema.options
           .map((option) => normalizeTitle(option.value))
           .filter(Boolean)
-          .map((slug) => `/tags/${slug}`);
+          .map((slug) => `/tags/${slug}`)
 
         return {
           paths,
-          fallback: true,
-        };
+          fallback: true
+        }
       }
     }
   }
 
   return {
     paths: [],
-    fallback: true,
-  };
+    fallback: true
+  }
 }
 
 const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
@@ -177,7 +172,7 @@ const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
         <div className={styles.mainContent}>
           <NoContents contents={posts} />
 
-          {posts.map((post) => {
+          {posts.map(post => {
             return (
               <div className={styles.post} key={post.Slug}>
                 <PostDate post={post} />
@@ -186,7 +181,7 @@ const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
                 <PostExcerpt post={post} />
                 <ReadMoreLink post={post} />
               </div>
-            );
+            )
           })}
 
           <footer>
@@ -200,19 +195,15 @@ const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: TagsPageProps) => {
-  const { tagsPage, propertyToFilterName, posts, tags } = props;
+export default function NotionTagsPage(props) {
+  const { tagsPage, propertyToFilterName, posts, firstPost, rankedPosts, tags } = props
 
   if (tagsPage) {
-    return (
-      <BlogPageTag posts={posts} firstPost={firstPost} rankedPosts={rankedPosts} tags={tags} />
-    );
+    return <BlogPageTag {...props} firstPost={firstPost} rankedPosts={rankedPosts} tags={tags} />
   }
 
-  return <NotionPage {...props} firstPost={firstPost} rankedPosts={rankedPosts} />;
-};
+  return <NotionPage {...props} />
 }
-export default NotionTagsPage;
