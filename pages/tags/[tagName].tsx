@@ -164,7 +164,7 @@ export async function getStaticPaths() {
   }
 }
 
-const BlogPageTag = async ({ posts, firstPost, rankedPosts, tags }) => {
+const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
   return (
     <>
       <GoogleAnalytics pageTitle="Blog" />
