@@ -27,8 +27,9 @@ import {
 } from '../../lib/notion/client';
 import type { NextPageContext, GetStaticProps } from 'next';
 import PageProps from 'next/types';
+import type { PageProps } from 'next';
 
-interface TagsPageProps extends typeof PageProps {
+interface TagsPageProps extends PageProps {
   firstPost: any;
   rankedPosts: any;
 }
@@ -215,4 +216,4 @@ const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: TagsPageProps) => 
   return <NotionPage {...props} firstPost={firstPost} rankedPosts={rankedPosts} />;
 };
 
-export default NotionTagsPage;
+export default NotionTagsPage
