@@ -25,7 +25,12 @@ import {
   getRankedPosts,
   getAllTags,
 } from '../../lib/notion/client';
+import { PageProps } from 'next/types';
 
+interface TagsPageProps extends PageProps {
+  firstPost: any;
+  rankedPosts: any;
+}
 const tagsPropertyNameLowerCase = 'tags';
 
 export const getStaticProps = async (context) => {
@@ -199,7 +204,7 @@ const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
   );
 };
 
-const NotionTagsPage = ({ firstPost, rankedPosts, ...props }) => {
+const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: TagsPageProps) => {
   const { tagsPage, propertyToFilterName, posts, tags } = props;
 
   if (tagsPage) {
