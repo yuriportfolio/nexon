@@ -28,6 +28,7 @@ import {
 import type { NextPageContext, GetStaticProps } from 'next';
 import PageProps from 'next/types';
 
+
 interface TagsPageProps extends PageProps {
   firstPost: any;
   rankedPosts: any;
@@ -205,7 +206,7 @@ const BlogPageTag = ({ posts, firstPost, rankedPosts, tags }) => {
   );
 };
 
-const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: TagsPageProps) => {
+const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: PageProps & TagsPageProps) => {
   const { tagsPage, propertyToFilterName, posts, tags } = props;
 
   if (tagsPage) {
