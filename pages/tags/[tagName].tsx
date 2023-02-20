@@ -25,7 +25,7 @@ import {
   getRankedPosts,
   getAllTags,
 } from '../../lib/notion/client';
-import type { PageProps } from 'next/types';
+import type { NextPageContext, GetStaticProps } from 'next';
 
 interface TagsPageProps extends PageProps {
   firstPost: any;
@@ -33,7 +33,7 @@ interface TagsPageProps extends PageProps {
 }
 const tagsPropertyNameLowerCase = 'tags';
 
-export const getStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, preview }) => {
   const rawTagName = (context.params.tagName as string) || '';
 
   try {
