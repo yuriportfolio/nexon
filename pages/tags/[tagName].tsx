@@ -25,7 +25,7 @@ import {
   getRankedPosts,
   getAllTags
 } from '../../lib/notion/client'
-import PageProps from 'next/types'
+import { PageProps } from 'next/types'
 
 interface TagsPageProps extends typeof PageProps {
 firstPost: any
