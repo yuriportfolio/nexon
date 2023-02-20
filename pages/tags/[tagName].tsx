@@ -202,7 +202,7 @@ export default function NotionTagsPage(props) {
   const { tagsPage, propertyToFilterName, posts, firstPost, rankedPosts, tags } = props
 
   if (tagsPage) {
-    return <BlogPageTag {...props} firstPost={firstPost} rankedPosts={rankedPosts} tags={tags} />
+    return <BlogPageTag posts={...props} firstPost={firstPost} rankedPosts={rankedPosts} tags={tags} />
   }
 
   return <NotionPage {...props} />
