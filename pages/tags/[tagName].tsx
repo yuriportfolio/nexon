@@ -26,6 +26,7 @@ import {
   getAllTags,
 } from '../../lib/notion/client';
 import type { NextPageContext, GetStaticProps } from 'next';
+import PageProps from 'next/types';
 
 interface TagsPageProps extends PageProps {
   firstPost: any;
