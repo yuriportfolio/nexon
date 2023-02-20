@@ -113,7 +113,7 @@ export const getStaticProps = async (context) => {
     return {
       props: {
         ...props,
-        tagsPage: true,
+        tagsPage: false,
         posts,
         firstPost,
         rankedPosts,
