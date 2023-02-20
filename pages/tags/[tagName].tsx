@@ -35,6 +35,7 @@ interface TagsPageProps extends typeof PageProps {
 
 const tagsPropertyNameLowerCase = 'tags'
 
+   
 export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, preview }) => {
   const rawTagName = (context.params.tagName as string) || ''
 
@@ -124,19 +125,18 @@ export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, pr
           firstPost,
           rankedPosts,
           tags,
-          propertyToFilterName,
+          propertyToFilterName
         },
         revalidate: 43200,
-      };
+      }; // <-- add the missing semicolon here
     } catch (err) {
       console.error('page error', domain, rawTagName, err);
-
-      // we don't want to publish the error version of this page, so
-      // let next.js know explicitly that incremental SSG failed
       throw err;
     }
-};
-
+  };
+      // we don't want to publish the error version of this page, so
+      // let next.js know explicitly that incremental SSG failed
+    
 export async function getStaticPaths() {
   if (!isDev) {
     const props = await resolveNotionPage(domain, rootNotionPageId);
