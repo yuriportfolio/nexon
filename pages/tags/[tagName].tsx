@@ -127,7 +127,7 @@ export const getStaticProps: GetStaticProps<TagsPageProps> = async ({ params, pr
           propertyToFilterName
         },
         revalidate: 43200,
-      }; // <-- add the missing semicolon here
+      }; 
     } catch (err) {
       console.error('page error', domain, rawTagName, err);
       throw err;
