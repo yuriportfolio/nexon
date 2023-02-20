@@ -28,7 +28,7 @@ import {
 import type { NextPageContext, GetStaticProps } from 'next'
 import PageProps from 'next/types'
 
-interface TagsPageProps extends PageProps {
+interface TagsPageProps extends typeof PageProps {
   firstPost: any
   rankedPosts: any
 }
