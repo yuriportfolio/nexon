@@ -29,8 +29,8 @@ import type { NextPageContext, GetStaticProps } from 'next'
 import PageProps from 'next/types'
 
 interface TagsPageProps extends typeof PageProps {
-  firstPost: any
-  rankedPosts: any
+firstPost: any
+ankedPosts: any
 }
 
 const tagsPropertyNameLowerCase = 'tags'
@@ -215,5 +215,5 @@ const NotionTagsPage = ({ firstPost, rankedPosts, ...props }: TagsPageProps) => 
 
   return <NotionPage {...props} firstPost={firstPost} rankedPosts={rankedPosts} />;
 };
-
+}
 export default NotionTagsPage;
