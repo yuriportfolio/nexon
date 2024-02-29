@@ -2,7 +2,7 @@ repo_name: yuriportfolio/nexon
 report_id: 7cee452ec8a2de7245b785b345759ed0
 version: 0.1
 repo_type: Public
-timestamp: '2024-01-05T09:08:02+00:00'
+timestamp: '2024-02-29T18:22:12+00:00'
 requested_by: yuriportfolio
 provider: github
 branch: main
@@ -53,7 +53,7 @@ tools:
   last_updated_by: Feng Kaiyu
   last_updated_on: 2022-04-09 09:42:00.000000000 Z
 - name: Next.js
-  description: 'A small framework for server-rendered universal JavaScript apps '
+  description: A small framework for server-rendered universal JavaScript apps
   website_url: https://nextjs.org/
   version: 13.1.6
   open_source: true
@@ -142,7 +142,7 @@ tools:
   last_updated_by: Travis Fischer
   last_updated_on: 2021-01-15 13:25:47.000000000 Z
 - name: Prettier
-  description: 'Prettier is an opinionated code formatter. '
+  description: Prettier is an opinionated code formatter.
   website_url: https://prettier.io/
   version: 2.8.4
   license: MIT
